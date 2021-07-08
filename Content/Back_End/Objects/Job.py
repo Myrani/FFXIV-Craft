@@ -22,17 +22,15 @@ class Job():
 
     def setMacro(self, content, indent):
         self.macro[indent] = content
-        print(self.macro[indent])
 
     def setTimeStop(self, content):
         self.timeStop = content
 
     def swapRecurrent(self):
         self.recurrent = not self.recurrent
-        print(self.recurrent)
 
     def selfSave(self):
-        print(os.getcwd())
+
         with open('Content/Back_End/Recurrent_Jobs/'+str(self.outfit)+self.item+str(self.quantity)+'.pkl', 'wb') as file:
             pickle.dump(self, file)
 
