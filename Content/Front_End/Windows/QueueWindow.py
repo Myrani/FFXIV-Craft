@@ -11,7 +11,7 @@ from Content.Front_End.Widgets.AddJobButton import AddJobButton
 # Instantiation du Front_End
 
 
-class QueueWindow(QtWidgets.QMainWindow):
+class QueueWindow(QtWidgets.QWidget):
     def __init__(self, jobList, parent=None):
         super(QueueWindow, self).__init__(parent)
         self.initUI(jobList)

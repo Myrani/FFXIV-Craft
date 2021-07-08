@@ -7,7 +7,7 @@ import sys
 
 class AddJobButton(QtWidgets.QWidget):
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
+        super(AddJobButton, self).__init__(parent=parent)
         self.setFixedSize(QtCore.QSize(200, 200))
         self.container = QtWidgets.QWidget()
         self.layout = QtWidgets.QHBoxLayout(self.container)
@@ -19,4 +19,8 @@ class AddJobButton(QtWidgets.QWidget):
             "border-style: solid; background-color: yellow;")
 
     def initUI(self):
-        self.layout.addWidget(QtWidgets.QPushButton(" Add New Job"))
+        self.addButton = QtWidgets.QPushButton(" Add New Job ")
+        print(self.nativeParentWidget())
+        self.addButton.clicked.connect(
+            lambda: self.nativeParentWidget().startJobCreationWindow())
+        self.layout.addWidget(self.addButton)
