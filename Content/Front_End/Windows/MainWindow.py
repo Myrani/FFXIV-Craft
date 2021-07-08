@@ -15,7 +15,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent=parent)
         self.setGeometry(10, 10, 700, 930)
-        self.jobList = [Job(11, "Madrier", 1, ["ctrl", "&"])]
+        self.jobList = [Job("Outfit Bind", "Item", "Quantity", [
+                            "Macro Key 1", "Macro Key 2"], "Macro Time")]
         self.startQueueWindow()
 
     def startQueueWindow(self):

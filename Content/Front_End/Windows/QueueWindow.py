@@ -7,6 +7,7 @@ from PyQt5 import QtGui
 
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
 from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton
+from Content.Back_End.Objects.JobProcessor import JobProcessor
 
 # Instantiation du Front_End
 
@@ -40,7 +41,9 @@ class QueueWindow(QtWidgets.QWidget):
     def initUIContent(self, jobList):
 
         self.addJob(jobList)
-        self.startMenuLayout.addWidget(QtWidgets.QPushButton("Start !"))
+        self.startButton = QtWidgets.QPushButton("Start !")
+        self.startButton.clicked.connect(self.generateJobProcessor)
+        self.startMenuLayout.addWidget(self.startButton)
 
     def addJob(self, jobList):
         for job in jobList:
@@ -48,3 +51,7 @@ class QueueWindow(QtWidgets.QWidget):
                 JobLabelWithRemove(job))
         self.jobMenuLayout.addWidget(AddJobButton())
         self.jobMenuLayout.addWidget(AddJobFromRecurrentButton())
+
+    def generateJobProcessor(self):
+        jobProcessor = JobProcessor(self.nativeParentWidget().jobList)
+        jobProcessor.start()

@@ -35,7 +35,7 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.windowLayout.addLayout(self.jobMenuLayout)
         self.windowLayout.addLayout(self.navigationMenuLayout)
 
-        self.newJob = Job(11, "string", 0, ["None", "None"])
+        self.newJob = Job(11, "string", 0, ["None", "None"], 0)
         self.initUIContent()
         self.show()
 
@@ -64,16 +64,24 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.jobMenuLayout.addWidget(self.quantityDialog, 5, 0, 1, 1)
 
         self.macroLabel = QtWidgets.QLabel("Keys to proc the macro")
-        self.macroDialog1 = QtWidgets.QLineEdit("Macro")
+        self.macroDialog1 = QtWidgets.QLineEdit("First Macro")
         self.macroDialog1.textChanged.connect(
             lambda: self.newJob.setMacro(self.macroDialog1.text(), 0))
-        self.macroDialog2 = QtWidgets.QLineEdit("Macro")
+        self.macroDialog2 = QtWidgets.QLineEdit("Second Macro")
         self.macroDialog2.textChanged.connect(
             lambda: self.newJob.setMacro(self.macroDialog2.text(), 1))
 
         self.jobMenuLayout.addWidget(self.macroLabel, 6, 0, 1, 1)
         self.jobMenuLayout.addWidget(self.macroDialog1, 7, 0, 1, 1)
         self.jobMenuLayout.addWidget(self.macroDialog2, 7, 1, 1, 1)
+
+        self.timeStopLabel = QtWidgets.QLabel("Time between each macro proc")
+        self.timeStopDialog = QtWidgets.QLineEdit("time")
+        self.timeStopDialog.textChanged.connect(
+            lambda: self.newJob.setTimeStop(self.timeStopDialog.text()))
+
+        self.jobMenuLayout.addWidget(self.timeStopLabel, 8, 0, 1, 1)
+        self.jobMenuLayout.addWidget(self.timeStopDialog, 9, 0, 1, 1)
 
         self.backButton = QtWidgets.QPushButton("Back")
         self.backButton.clicked.connect(

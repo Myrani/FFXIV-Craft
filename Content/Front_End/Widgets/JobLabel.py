@@ -17,6 +17,7 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.item = job.item
         self.quantity = job.quantity
         self.macro = job.macro
+        self.timeStop = job.timeStop
 
         self.setLayout(self.layout)
         self.initUI()
@@ -34,6 +35,7 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.layout.addWidget(QtWidgets.QLabel(str(self.quantity)))
         self.layout.addWidget(QtWidgets.QLabel(
             str(self.macro[0]+" "+self.macro[1])))
+        self.layout.addWidget(QtWidgets.QLabel(str(self.timeStop)))
         self.removeButton = QtWidgets.QPushButton("X")
 
         self.removeButton.clicked.connect(
@@ -54,6 +56,7 @@ class JobLabelWithAdd(QtWidgets.QWidget):
         self.item = job.item
         self.quantity = job.quantity
         self.macro = job.macro
+        self.timeStop = job.timeStop
 
         self.setLayout(self.layout)
         self.initUI()
@@ -71,6 +74,7 @@ class JobLabelWithAdd(QtWidgets.QWidget):
         self.layout.addWidget(QtWidgets.QLabel(str(self.quantity)))
         self.layout.addWidget(QtWidgets.QLabel(
             str(self.macro[0]+" "+self.macro[1])))
+        self.layout.addWidget(QtWidgets.QLabel(str(self.timeStop)))
         self.addButton = QtWidgets.QPushButton("+")
 
         self.addButton.clicked.connect(
