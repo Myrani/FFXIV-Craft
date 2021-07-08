@@ -5,8 +5,8 @@ from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 
-from Content.Front_End.Widgets.JobLabel import JobLabel
-from Content.Front_End.Widgets.AddJobButton import AddJobButton
+from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
+from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton
 
 # Instantiation du Front_End
 
@@ -45,5 +45,6 @@ class QueueWindow(QtWidgets.QWidget):
     def addJob(self, jobList):
         for job in jobList:
             self.jobMenuLayout.addWidget(
-                JobLabel(job.outfit, job.item, job.quantity, job.macro))
+                JobLabelWithRemove(job))
         self.jobMenuLayout.addWidget(AddJobButton())
+        self.jobMenuLayout.addWidget(AddJobFromRecurrentButton())

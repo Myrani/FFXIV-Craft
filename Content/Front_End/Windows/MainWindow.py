@@ -7,6 +7,7 @@ from PyQt5 import QtGui
 
 from Content.Front_End.Windows.QueueWindow import QueueWindow
 from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
+from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
 from Content.Back_End.Objects.Job import Job
 
 
@@ -23,6 +24,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def startJobCreationWindow(self):
-        self.queueWindow = JobCreationWindow()
-        self.setCentralWidget(self.queueWindow)
+        self.jobCreationWindow = JobCreationWindow()
+        self.setCentralWidget(self.jobCreationWindow)
+        self.show()
+
+    def startRecurrentJobsWindow(self):
+        self.recurrentJobsWindow = RecurrentJobsWindow()
+        self.setCentralWidget(self.recurrentJobsWindow)
         self.show()

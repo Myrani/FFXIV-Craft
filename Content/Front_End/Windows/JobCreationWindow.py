@@ -5,7 +5,6 @@ from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 
-from Content.Front_End.Widgets.JobLabel import JobLabel
 from Content.Front_End.Widgets.AddJobButton import AddJobButton
 
 from Content.Back_End.Objects.Job import Job
@@ -19,12 +18,22 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.initUI()
 
     def initUI(self):
+        self.windowLayout = QtWidgets.QVBoxLayout()
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QGridLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 110, 675, 700)
+        self.jobMenu.setGeometry(10, 10, 675, 700)
+
+        self.navigationMenu = QtWidgets.QGroupBox(self)
+        self.navigationMenuLayout = QtWidgets.QGridLayout()
+        self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
+        self.navigationMenu.setLayout(self.navigationMenuLayout)
+        self.navigationMenu.setGeometry(10, 710, 675, 200)
+
+        self.windowLayout.addLayout(self.jobMenuLayout)
+        self.windowLayout.addLayout(self.navigationMenuLayout)
 
         self.newJob = Job(11, "string", 0, ["None", "None"])
         self.initUIContent()
@@ -65,3 +74,24 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.jobMenuLayout.addWidget(self.macroLabel, 6, 0, 1, 1)
         self.jobMenuLayout.addWidget(self.macroDialog1, 7, 0, 1, 1)
         self.jobMenuLayout.addWidget(self.macroDialog2, 7, 1, 1, 1)
+
+        self.backButton = QtWidgets.QPushButton("Back")
+        self.backButton.clicked.connect(
+            lambda: self.nativeParentWidget().startQueueWindow())
+        self.navigationMenuLayout.addWidget(self.backButton, 0, 0, 1, 1)
+
+        self.addButton = QtWidgets.QPushButton("Add to the list")
+        self.addButton.clicked.connect(
+            lambda: self.addJob())
+        self.navigationMenuLayout.addWidget(self.addButton, 0, 2, 1, 1)
+
+        self.recurrentCheckBox = QtWidgets.QCheckBox(
+            "Remember this job for an ulterior use ?")
+        self.recurrentCheckBox.stateChanged.connect(self.newJob.swapRecurrent)
+        self.navigationMenuLayout.addWidget(self.recurrentCheckBox, 1, 2, 1, 1)
+
+    def addJob(self):
+        self.nativeParentWidget().jobList.append(self.newJob)
+        if self.newJob.recurrent:
+            self.newJob.selfSave()
+        self.nativeParentWidget().startQueueWindow()
