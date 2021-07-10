@@ -1,5 +1,5 @@
 import sys
-
+import os
 from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from PyQt5 import QtGui
@@ -11,5 +11,7 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
     MainWindow = MainWindow()
+    
 
     sys.exit(app.exec_())
+    os.system("pause")

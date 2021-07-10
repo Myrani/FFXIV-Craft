@@ -6,36 +6,62 @@ import os
 class JobProcessor():
     def __init__(self, joblist):
         self.joblist = joblist
+        self.searchBar = None
+    
+    def slowClick(self,lapse):
+        pyautogui.mouseDown()
+        time.sleep(lapse)
+        pyautogui.mouseUp()  
+    
+    def doubleClick(self):
+        pyautogui.mouseDown()
+        pyautogui.mouseUp()
+        pyautogui.mouseDown()
+        pyautogui.mouseUp()
+    def changeCurrentJobSpecs(self,job):
+        self.currentOufit = job.outfit
+        self.currentItem = job.item
+        self.currentQuantity = int(job.quantity)
+        self.currentMacro = job.macro
+        self.currentTimeStop = int(job.timeStop)
 
-    def setupVisualCues(self):
-        self.fabricationButton = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9))
-        self.outfitButton = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9))
-        self.searchBar = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9))
+    def testVisualCues(self):
+        self.fabricationButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9)
+        self.outfitButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
+        self.searchBar = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9)
 
         print(self.fabricationButton)
         print(self.outfitButton)
         print(self.searchBar)
 
-    def equipOutfit(self, number):
+    def equipOutfit(self):
 
         pyautogui.press("p")
-        self.outfitButton = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9))
+        time.sleep(1)
+        self.outfitButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
         pyautogui.click(pyautogui.center(self.outfitButton))
-        self.currentOutfit = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit_' + number+'.PNG', confidence=0.9))
+        self.slowClick(0.4)    
+        time.sleep(1)
+        self.currentOutfitPlace = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit_' + self.currentOufit +'.PNG', confidence=0.8)
+        pyautogui.click(self.currentOutfitPlace)
+        self.doubleClick()
+        time.sleep(1)
         pyautogui.press("p")
-
-    def searchItem(self, item):
+    
+    def cleanSearchbar(self):
+        pyautogui.press("n")
+        
+        pyautogui.click(10,10)
+    def searchItem(self):
         pyautogui.press("n")
         time.sleep(1)
-        self.searchBar = pyautogui.center(
-            pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9))
+        if self.searchBar == None:
+            self.searchBar = pyautogui.center(
+                pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9))
         pyautogui.click(self.searchBar)
-        pyautogui.write(item)
+        pyautogui.write(self.currentItem)
+        pyautogui.press("enter")
+        time.sleep(0.5)
         pyautogui.click(pyautogui.center(
             pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/item_found_color.PNG', confidence=0.9)))
 
@@ -44,28 +70,34 @@ class JobProcessor():
             pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9))
         pyautogui.click(self.fabricationButton)
         pyautogui.click(self.fabricationButton)
-        sleep(3)
+        time.sleep(3)
         pyautogui.keyDown(self.currentMacro[0])
-        sleep(0.1)
+        time.sleep(0.1)
         pyautogui.keyDown(self.currentMacro[1])
-        sleep(0.1)imeStop
+        time.sleep(0.1)
         pyautogui.keyUp(self.currentMacro[0])
         pyautogui.keyUp(self.currentMacro[1])
-        sleep(self.currentTimeStop)
-        print("Item :", i+1, " Crafted")
+        time.sleep(self.currentTimeStop)
+        print("Item :", " Crafted")
 
     def doJobs(self):
         for job in self.joblist:
-            self.currentOufit = job.outfit
-            self.currentItem = job.item
-            self.currentQuantity = job.quantity
-            self.currentMacro = job.macro
-            self.currentTimeStop = job.timeStop
-
+            self.changeCurrentJobSpecs(job)
+            self.equipOutfit()
+            self.searchItem()
             for i in range(0, self.currentQuantity):
                 self.fabricate()
+            self.cleanSearchbar()
+        
+        print("All jobs done !!!")
 
     def start(self):
         print("FFXIV Craft Manager : Online")
+        time.sleep(5)
+        self.testVisualCues()
         # self.setupVisualCues()
-        self.searchItem("Test")
+        
+        self.doJobs()
+
+        
+        
