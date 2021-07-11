@@ -4,7 +4,7 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from PyQt5 import QtGui
-
+import os
 from Content.Front_End.Windows.QueueWindow import QueueWindow
 from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
@@ -14,14 +14,22 @@ from Content.Back_End.Objects.Job import Job
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, app, parent=None):
         super(MainWindow, self).__init__(parent=parent)
-        self.setGeometry(10, 10, 700, 930)
+        self.setGeometry(10, 10, 1280, 720)
         self.jobList = []
 
         # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
-        self.setWindowOpacity(0.8)
+        self.setWindowOpacity(0.95)
+
+        self.label_background = QtWidgets.QLabel("transparent ", self)
+        self.label_background.setGeometry(0, 0, 1280, 720)
+        #self.label_background.move(0, 0)
+        pixmap = QtGui.QPixmap(
+            'Content/Back_End/Visual_Ressources/FFXIV.jpeg').scaled(self.size())
+        self.label_background.setPixmap(pixmap)
+
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setStyleSheet("background-color:#6d3a91;")
+        # self.setStyleSheet("background-color:#6d3a91;")
 
         self.startQueueWindow()
 

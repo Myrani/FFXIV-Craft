@@ -23,23 +23,29 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(600, -30, 100, 50)
+        self.systemBar.setGeometry(1200, -30, 75, 50)
 
         self.headerMenu = QtWidgets.QGroupBox(self)
         self.headerMenuLayout = QtWidgets.QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
-        self.headerMenu.setGeometry(10, 50, 675, 100)
+        self.headerMenu.setGeometry(10, 10, 1075, 100)
+
+        self.creationMenu = QtWidgets.QGroupBox(self)
+        self.creationMenuLayout = QtWidgets.QVBoxLayout()
+        self.creationMenuLayout.setContentsMargins(10, 10, 10, 10)
+        self.creationMenu.setLayout(self.creationMenuLayout)
+        self.creationMenu.setGeometry(10, 110, 250, 300)
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 110, 675, 700)
+        self.jobMenu.setGeometry(275, 110, 1000, 500)
 
         self.startMenu = QtWidgets.QGroupBox(self)
         self.startMenuLayout = QtWidgets.QVBoxLayout()
         self.startMenu.setLayout(self.startMenuLayout)
-        self.startMenu.setGeometry(10, 810, 675, 100)
+        self.startMenu.setGeometry(600, 600, 675, 100)
 
         self.initUIContent(jobList)
 
@@ -48,7 +54,9 @@ class QueueWindow(QtWidgets.QWidget):
     def initUIContent(self, jobList):
 
         self.addJob(jobList)
-        self.startButton = QtWidgets.QPushButton("Start !")
+        self.startButton = QtWidgets.QPushButton("Start the bulk crafting!")
+        self.startButton.setStyleSheet(
+            "border-style: solid; background-color: black;color : white; ")
         self.startButton.clicked.connect(self.generateJobProcessor)
         self.startMenuLayout.addWidget(self.startButton)
 
@@ -70,8 +78,8 @@ class QueueWindow(QtWidgets.QWidget):
         for job in jobList:
             self.jobMenuLayout.addWidget(
                 JobLabelWithRemove(job))
-        self.jobMenuLayout.addWidget(AddJobButton())
-        self.jobMenuLayout.addWidget(AddJobFromRecurrentButton())
+        self.creationMenuLayout.addWidget(AddJobButton())
+        self.creationMenuLayout.addWidget(AddJobFromRecurrentButton())
 
     def generateJobProcessor(self):
         jobProcessor = JobProcessor(self.nativeParentWidget().jobList)

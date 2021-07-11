@@ -23,19 +23,19 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(600, -30, 100, 50)
+        self.systemBar.setGeometry(1200, -30, 100, 50)
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QGridLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 30, 675, 700)
+        self.jobMenu.setGeometry(10, 30, 675, 500)
 
         self.navigationMenu = QtWidgets.QGroupBox(self)
         self.navigationMenuLayout = QtWidgets.QGridLayout()
         self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.navigationMenu.setLayout(self.navigationMenuLayout)
-        self.navigationMenu.setGeometry(10, 710, 675, 200)
+        self.navigationMenu.setGeometry(10, 525, 675, 200)
 
         self.windowLayout.addLayout(self.jobMenuLayout)
         self.windowLayout.addLayout(self.navigationMenuLayout)

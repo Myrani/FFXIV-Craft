@@ -31,19 +31,19 @@ class RecurrentJobsWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(600, -30, 100, 50)
+        self.systemBar.setGeometry(1200, -30, 100, 50)
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 110, 675, 700)
+        self.jobMenu.setGeometry(10, 10, 1200, 500)
 
         self.navigationMenu = QtWidgets.QGroupBox(self)
         self.navigationMenuLayout = QtWidgets.QGridLayout()
         self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.navigationMenu.setLayout(self.navigationMenuLayout)
-        self.navigationMenu.setGeometry(10, 710, 675, 200)
+        self.navigationMenu.setGeometry(10, 600, 675, 100)
 
         self.minimizeButton = QtWidgets.QPushButton("-")
         self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))

@@ -7,18 +7,19 @@ class JobProcessor():
     def __init__(self, joblist):
         self.joblist = joblist
         self.searchBar = None
-    
-    def slowClick(self,lapse):
+
+    def slowClick(self, lapse):
         pyautogui.mouseDown()
         time.sleep(lapse)
-        pyautogui.mouseUp()  
-    
+        pyautogui.mouseUp()
+
     def doubleClick(self):
         pyautogui.mouseDown()
         pyautogui.mouseUp()
         pyautogui.mouseDown()
         pyautogui.mouseUp()
-    def changeCurrentJobSpecs(self,job):
+
+    def changeCurrentJobSpecs(self, job):
         self.currentOufit = job.outfit
         self.currentItem = job.item
         self.currentQuantity = int(job.quantity)
@@ -26,9 +27,12 @@ class JobProcessor():
         self.currentTimeStop = int(job.timeStop)
 
     def testVisualCues(self):
-        self.fabricationButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9)
-        self.outfitButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
-        self.searchBar = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9)
+        self.fabricationButton = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9)
+        self.outfitButton = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
+        self.searchBar = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/search.PNG', confidence=0.9)
 
         print(self.fabricationButton)
         print(self.outfitButton)
@@ -38,20 +42,23 @@ class JobProcessor():
 
         pyautogui.press("p")
         time.sleep(1)
-        self.outfitButton = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
+        self.outfitButton = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/outfit.PNG', confidence=0.9)
         pyautogui.click(pyautogui.center(self.outfitButton))
-        self.slowClick(0.4)    
+        self.slowClick(0.4)
         time.sleep(1)
-        self.currentOutfitPlace = pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/outfit_' + self.currentOufit +'.PNG', confidence=0.8)
+        self.currentOutfitPlace = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/outfit_' + self.currentOufit + '.PNG', confidence=0.8)
         pyautogui.click(self.currentOutfitPlace)
         self.doubleClick()
         time.sleep(1)
         pyautogui.press("p")
-    
+
     def cleanSearchbar(self):
         pyautogui.press("n")
-        
-        pyautogui.click(10,10)
+
+        pyautogui.click(10, 10)
+
     def searchItem(self):
         pyautogui.press("n")
         time.sleep(1)
@@ -88,7 +95,7 @@ class JobProcessor():
             for i in range(0, self.currentQuantity):
                 self.fabricate()
             self.cleanSearchbar()
-        
+
         print("All jobs done !!!")
 
     def start(self):
@@ -96,8 +103,5 @@ class JobProcessor():
         time.sleep(5)
         self.testVisualCues()
         # self.setupVisualCues()
-        
-        self.doJobs()
 
-        
-        
+        self.doJobs()

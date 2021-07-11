@@ -21,9 +21,8 @@ class JobLabelWithRemove(QtWidgets.QWidget):
 
         self.setLayout(self.layout)
         self.initUI()
-
         self.setStyleSheet(
-            "border-style: solid; color white;")
+            "border-style: solid; color: white;background-color: rgba(0, 0, 0, 0.6); ")
 
     def removeJob(self):
         self.nativeParentWidget().jobList.remove(self.job)
@@ -60,9 +59,8 @@ class JobLabelWithAdd(QtWidgets.QWidget):
 
         self.setLayout(self.layout)
         self.initUI()
-
         self.setStyleSheet(
-            "border-style: solid;")
+            "border-style: solid; color: white;background-color: rgba(0, 0, 0, 0.6); ")
 
     def addJob(self):
         self.nativeParentWidget().jobList.append(self.job)
