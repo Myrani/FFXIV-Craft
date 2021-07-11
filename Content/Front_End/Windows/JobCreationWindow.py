@@ -20,11 +20,16 @@ class JobCreationWindow(QtWidgets.QMainWindow):
     def initUI(self):
         self.windowLayout = QtWidgets.QVBoxLayout()
 
+        self.systemBar = QtWidgets.QGroupBox(self)
+        self.systemBarLayout = QtWidgets.QHBoxLayout()
+        self.systemBar.setLayout(self.systemBarLayout)
+        self.systemBar.setGeometry(600, -30, 100, 50)
+
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QGridLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 10, 675, 700)
+        self.jobMenu.setGeometry(10, 30, 675, 700)
 
         self.navigationMenu = QtWidgets.QGroupBox(self)
         self.navigationMenuLayout = QtWidgets.QGridLayout()
@@ -40,6 +45,21 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.show()
 
     def initUIContent(self):
+
+        self.minimizeButton = QtWidgets.QPushButton("-")
+        self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))
+        self.minimizeButton.setMaximumSize(QtCore.QSize(20, 20))
+        self.minimizeButton.clicked.connect(
+            lambda: QtCore.QCoreApplication.translate())
+        self.systemBarLayout.addWidget(self.minimizeButton)
+
+        self.exitButton = QtWidgets.QPushButton("X")
+        self.exitButton.setMinimumSize(QtCore.QSize(20, 20))
+        self.exitButton.setMaximumSize(QtCore.QSize(20, 20))
+        self.exitButton.clicked.connect(
+            lambda: QtCore.QCoreApplication.exit())
+        self.systemBarLayout.addWidget(self.exitButton)
+
         self.oufitLabel = QtWidgets.QLabel("Outfit Number")
         self.oufitDialog = QtWidgets.QLineEdit("Outfit")
         self.oufitDialog.textChanged.connect(

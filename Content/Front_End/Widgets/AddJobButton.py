@@ -16,10 +16,10 @@ class AddJobButton(QtWidgets.QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid; background-color: yellow;")
+            "border-style: solid black 5px ; background-color: white;")
 
     def initUI(self):
-        self.addButton = QtWidgets.QPushButton(" Add a New Job ")
+        self.addButton = QtWidgets.QPushButton(" Create a new job ")
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startJobCreationWindow())
@@ -40,7 +40,7 @@ class AddJobFromRecurrentButton(QtWidgets.QWidget):
             "border-style: solid; background-color: yellow;")
 
     def initUI(self):
-        self.addButton = QtWidgets.QPushButton(" Add a Recurrent job ")
+        self.addButton = QtWidgets.QPushButton(" Add a recurrent job ")
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startRecurrentJobsWindow())

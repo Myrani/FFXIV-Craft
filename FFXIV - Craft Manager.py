@@ -10,8 +10,7 @@ from Content.Front_End.Windows.MainWindow import MainWindow
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
-    MainWindow = MainWindow()
-    
+    MainWindow = MainWindow(app)
 
     sys.exit(app.exec_())
     os.system("pause")

@@ -27,13 +27,44 @@ class RecurrentJobsWindow(QtWidgets.QWidget):
         return list_of_jobs
 
     def initUI(self, jobList):
+
+        self.systemBar = QtWidgets.QGroupBox(self)
+        self.systemBarLayout = QtWidgets.QHBoxLayout()
+        self.systemBar.setLayout(self.systemBarLayout)
+        self.systemBar.setGeometry(600, -30, 100, 50)
+
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(10, 110, 675, 700)
 
+        self.navigationMenu = QtWidgets.QGroupBox(self)
+        self.navigationMenuLayout = QtWidgets.QGridLayout()
+        self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
+        self.navigationMenu.setLayout(self.navigationMenuLayout)
+        self.navigationMenu.setGeometry(10, 710, 675, 200)
+
+        self.minimizeButton = QtWidgets.QPushButton("-")
+        self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))
+        self.minimizeButton.setMaximumSize(QtCore.QSize(20, 20))
+        self.minimizeButton.clicked.connect(
+            lambda: QtCore.QCoreApplication.translate())
+        self.systemBarLayout.addWidget(self.minimizeButton)
+
+        self.exitButton = QtWidgets.QPushButton("X")
+        self.exitButton.setMinimumSize(QtCore.QSize(20, 20))
+        self.exitButton.setMaximumSize(QtCore.QSize(20, 20))
+        self.exitButton.clicked.connect(
+            lambda: QtCore.QCoreApplication.exit())
+        self.systemBarLayout.addWidget(self.exitButton)
+
         for job in jobList:
             with open('Content/Back_End/Recurrent_Jobs/'+job, 'rb') as currentjob:
                 task = pickle.load(currentjob)
             self.jobMenuLayout.addWidget(JobLabelWithAdd(task))
+
+        self.backButton = QtWidgets.QPushButton("Back")
+        self.backButton.clicked.connect(
+            lambda: self.nativeParentWidget().startQueueWindow())
+        self.navigationMenuLayout.addWidget(self.backButton, 0, 0, 1, 1)

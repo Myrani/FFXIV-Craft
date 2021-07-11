@@ -23,7 +23,7 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid;")
+            "border-style: solid; color white;")
 
     def removeJob(self):
         self.nativeParentWidget().jobList.remove(self.job)
