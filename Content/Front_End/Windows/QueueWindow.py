@@ -23,12 +23,19 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1200, -30, 75, 50)
+        self.systemBar.setGeometry(1200, -20, 75, 50)
 
         self.headerMenu = QtWidgets.QGroupBox(self)
         self.headerMenuLayout = QtWidgets.QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
-        self.headerMenu.setGeometry(10, 10, 1075, 100)
+        self.headerMenu.setGeometry(0, -40, 400, 100)
+
+        self.headerLabel = QtWidgets.QGroupBox(self)
+        self.headerLabelLayout = QtWidgets.QVBoxLayout()
+        self.headerLabel.setLayout(self.headerLabelLayout)
+        self.headerLabel.setGeometry(275, 70, 200, 50)
+        self.headerLabel.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.creationMenu = QtWidgets.QGroupBox(self)
         self.creationMenuLayout = QtWidgets.QVBoxLayout()
@@ -41,6 +48,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(275, 110, 1000, 500)
+        self.jobMenu.setStyleSheet("QGroupBox {border:3px solid black;}")
 
         self.startMenu = QtWidgets.QGroupBox(self)
         self.startMenuLayout = QtWidgets.QVBoxLayout()
@@ -53,18 +61,11 @@ class QueueWindow(QtWidgets.QWidget):
 
     def initUIContent(self, jobList):
 
-        self.addJob(jobList)
-        self.startButton = QtWidgets.QPushButton("Start the bulk crafting!")
-        self.startButton.setStyleSheet(
-            "border-style: solid; background-color: black;color : white; ")
-        self.startButton.clicked.connect(self.generateJobProcessor)
-        self.startMenuLayout.addWidget(self.startButton)
-
         self.minimizeButton = QtWidgets.QPushButton("-")
         self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))
         self.minimizeButton.setMaximumSize(QtCore.QSize(20, 20))
         self.minimizeButton.clicked.connect(
-            lambda: QtCore.QCoreApplication.translate())
+            lambda: QtWidgets.QMainWindow.showMinimized(self.nativeParentWidget()))
         self.systemBarLayout.addWidget(self.minimizeButton)
 
         self.exitButton = QtWidgets.QPushButton("X")
@@ -73,6 +74,22 @@ class QueueWindow(QtWidgets.QWidget):
         self.exitButton.clicked.connect(
             lambda: QtCore.QCoreApplication.exit())
         self.systemBarLayout.addWidget(self.exitButton)
+
+        self.headerMenuLayout.addWidget(QtWidgets.QLabel(
+            "FFXIV Craft Manager Beta : Version 0.0.1"))
+
+        self.currentJobLabel = QtWidgets.QLabel("Current Joblist")
+        self.currentJobLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.currentJobLabel.setStyleSheet(
+            "background-color: rgba(0, 0, 0, 0.6);color:white;}")
+        self.headerLabelLayout.addWidget(self.currentJobLabel)
+
+        self.addJob(jobList)
+        self.startButton = QtWidgets.QPushButton("Start the bulk crafting!")
+        self.startButton.setStyleSheet(
+            "border-style: solid; background-color: black;color : white; ")
+        self.startButton.clicked.connect(self.generateJobProcessor)
+        self.startMenuLayout.addWidget(self.startButton)
 
     def addJob(self, jobList):
         for job in jobList:
