@@ -68,7 +68,7 @@ class JobProcessor():
         pyautogui.click(self.searchBar)
         pyautogui.write(self.currentItem)
         pyautogui.press("enter")
-        time.sleep(0.5)
+        time.sleep(2)
         pyautogui.click(pyautogui.center(
             pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/item_found_color.PNG', confidence=0.9)))
 

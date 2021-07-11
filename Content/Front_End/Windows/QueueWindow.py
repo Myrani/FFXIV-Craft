@@ -26,11 +26,16 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
         self.systemBar.setGeometry(1200, -20, 75, 50)
+        self.systemBar.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
+
 
         self.headerMenu = QtWidgets.QGroupBox(self)
         self.headerMenuLayout = QtWidgets.QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
         self.headerMenu.setGeometry(0, -40, 400, 100)
+        self.headerMenu.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.headerLabel = QtWidgets.QGroupBox(self)
         self.headerLabelLayout = QtWidgets.QVBoxLayout()
@@ -44,6 +49,8 @@ class QueueWindow(QtWidgets.QWidget):
         self.creationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.creationMenu.setLayout(self.creationMenuLayout)
         self.creationMenu.setGeometry(10, 110, 250, 300)
+        self.creationMenu.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
@@ -56,6 +63,9 @@ class QueueWindow(QtWidgets.QWidget):
         self.startMenuLayout = QtWidgets.QVBoxLayout()
         self.startMenu.setLayout(self.startMenuLayout)
         self.startMenu.setGeometry(600, 600, 675, 100)
+        self.startMenu.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
+
 
         self.initUIContent(jobList)
 
