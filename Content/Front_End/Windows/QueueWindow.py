@@ -9,13 +9,15 @@ from Content.Front_End.Widgets.MenuBar import MenuBar
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
 from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton
 from Content.Back_End.Objects.JobProcessor import JobProcessor
-
+from Content.Back_End.Objects.PyQtWorker import Worker
 # Instantiation du Front_End
 
 
 class QueueWindow(QtWidgets.QWidget):
     def __init__(self, jobList, parent=None):
         super(QueueWindow, self).__init__(parent)
+        self.threadpool = QtCore.QThreadPool()
+
         self.initUI(jobList)
 
     def initUI(self, jobList):
@@ -100,4 +102,6 @@ class QueueWindow(QtWidgets.QWidget):
 
     def generateJobProcessor(self):
         jobProcessor = JobProcessor(self.nativeParentWidget().jobList)
-        jobProcessor.start()
+        self.worker = Worker(JobProcessor(
+            self.nativeParentWidget().jobList).start)
+        self.threadpool.start(self.worker)
