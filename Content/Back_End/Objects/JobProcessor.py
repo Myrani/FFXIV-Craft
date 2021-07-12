@@ -2,12 +2,17 @@ import pyautogui
 import time
 import os
 
+from Content.Back_End.Objects.WorkerSignals import WorkerSignals
+from PyQt5.QtCore import QRunnable, pyqtSlot
 
-class JobProcessor():
+
+class JobProcessor(QRunnable):
     def __init__(self, joblist, parent):
+        super(JobProcessor, self).__init__()
         self.joblist = joblist
         self.parent = parent
-        self.parent.addActivityOnFeed("Crafting Has Begun")
+        self.signals = WorkerSignals()
+
         self.searchBar = None
 
     def slowClick(self, lapse):
@@ -100,9 +105,13 @@ class JobProcessor():
 
         print("All jobs done !!!")
 
-    def start(self):
+    def run(self):
         print("FFXIV Craft Manager : Online")
+        self.signals.result.emit("---- Craft Begin ----")
+
         time.sleep(5)
         self.testVisualCues()
         # self.setupVisualCues()
         self.doJobs()
+
+        self.signals.result.emit("---- Craft Ended ----")

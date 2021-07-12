@@ -7,7 +7,7 @@ from PyQt5 import QtGui
 
 from Content.Front_End.Widgets.MenuBar import MenuBar
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
-from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton
+from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton
 from Content.Back_End.Objects.JobProcessor import JobProcessor
 from Content.Back_End.Objects.PyQtWorker import Worker
 # Instantiation du Front_End
@@ -47,7 +47,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.creationMenuLayout = QtWidgets.QVBoxLayout()
         self.creationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.creationMenu.setLayout(self.creationMenuLayout)
-        self.creationMenu.setGeometry(10, 110, 250, 300)
+        self.creationMenu.setGeometry(10, 110, 250, 400)
         self.creationMenu.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
@@ -86,6 +86,8 @@ class QueueWindow(QtWidgets.QWidget):
 
     def initUIContent(self, jobList):
 
+        self.addJob(jobList)
+
         self.minimizeButton = QtWidgets.QPushButton("-")
         self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))
         self.minimizeButton.setMaximumSize(QtCore.QSize(20, 20))
@@ -101,7 +103,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBarLayout.addWidget(self.exitButton)
 
         self.headerMenuLayout.addWidget(QtWidgets.QLabel(
-            "FFXIV Craft Manager Beta : Version 0.0.3"))
+            "FFXIV Craft Manager Beta : Version 0.0.4"))
 
         self.currentJobLabel = QtWidgets.QLabel("Current Joblist")
         self.currentJobLabel.setAlignment(QtCore.Qt.AlignCenter)
@@ -115,23 +117,16 @@ class QueueWindow(QtWidgets.QWidget):
             "background-color: rgba(0, 0, 0, 0.6);color:white;}")
         self.activityHeaderLabelLayout.addWidget(self.currentActivityLabel)
 
-        self.addJob(jobList)
-        self.startButton = QtWidgets.QPushButton("Start the bulk crafting!")
-        self.startButton.setStyleSheet(
-            "border-style: solid; background-color: black;color : white; ")
-        self.startButton.clicked.connect(self.generateJobProcessor)
-        self.startMenuLayout.addWidget(self.startButton)
-
     def addJob(self, jobList):
         for job in jobList:
             self.jobMenuLayout.addWidget(
                 JobLabelWithRemove(job))
         self.creationMenuLayout.addWidget(AddJobButton())
         self.creationMenuLayout.addWidget(AddJobFromRecurrentButton())
+        self.creationMenuLayout.addWidget(StartJobsButton(self))
 
     def generateJobProcessor(self):
-        jobProcessor = JobProcessor(self.nativeParentWidget().jobList, self)
-        self.worker = Worker(jobProcessor.start)
+        self.worker = JobProcessor(self.nativeParentWidget().jobList, self)
         self.worker.signals.result.connect(self.addActivityOnFeed)
         self.worker.signals.finished.connect(self.addActivityOnFeed)
         self.worker.signals.progress.connect(self.addActivityOnFeed)
