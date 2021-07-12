@@ -29,12 +29,28 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.nativeParentWidget().startQueueWindow()
 
     def initUI(self):
-        self.layout.addWidget(QtWidgets.QLabel(str(self.outfit)))
-        self.layout.addWidget(QtWidgets.QLabel(str(self.item)))
-        self.layout.addWidget(QtWidgets.QLabel(str(self.quantity)))
-        self.layout.addWidget(QtWidgets.QLabel(
-            str(self.macro[0]+" "+self.macro[1])))
-        self.layout.addWidget(QtWidgets.QLabel(str(self.timeStop)))
+
+        self.outfitLabel = QtWidgets.QLabel(str(self.outfit))
+        self.outfitLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.outfitLabel)
+
+        self.itemLabel = QtWidgets.QLabel(str(self.item))
+        self.itemLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.itemLabel)
+
+        self.quantityLabel = QtWidgets.QLabel(str(self.quantity))
+        self.quantityLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.quantityLabel)
+
+        self.macroLabel = QtWidgets.QLabel(
+            str(self.macro[0]+" + "+self.macro[1]))
+        self.macroLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.macroLabel)
+
+        self.timeStopLabel = QtWidgets.QLabel(str(self.timeStop))
+        self.timeStopLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.timeStopLabel)
+
         self.removeButton = QtWidgets.QPushButton("X")
 
         self.removeButton.clicked.connect(

@@ -4,8 +4,10 @@ import os
 
 
 class JobProcessor():
-    def __init__(self, joblist):
+    def __init__(self, joblist, parent):
         self.joblist = joblist
+        self.parent = parent
+        self.parent.addActivityOnFeed("Crafting Has Begun")
         self.searchBar = None
 
     def slowClick(self, lapse):
@@ -103,5 +105,4 @@ class JobProcessor():
         time.sleep(5)
         self.testVisualCues()
         # self.setupVisualCues()
-
         self.doJobs()

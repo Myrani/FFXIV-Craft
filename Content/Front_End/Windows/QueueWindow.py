@@ -29,7 +29,6 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBar.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
-
         self.headerMenu = QtWidgets.QGroupBox(self)
         self.headerMenuLayout = QtWidgets.QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
@@ -40,7 +39,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.headerLabel = QtWidgets.QGroupBox(self)
         self.headerLabelLayout = QtWidgets.QVBoxLayout()
         self.headerLabel.setLayout(self.headerLabelLayout)
-        self.headerLabel.setGeometry(275, 70, 200, 50)
+        self.headerLabel.setGeometry(210, 70, 200, 50)
         self.headerLabel.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
@@ -56,8 +55,23 @@ class QueueWindow(QtWidgets.QWidget):
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(275, 110, 1000, 500)
+        self.jobMenu.setGeometry(225, 110, 700, 500)
         self.jobMenu.setStyleSheet("QGroupBox {border:3px solid black;}")
+
+        self.activityFeed = QtWidgets.QGroupBox(self)
+        self.activityFeedLayout = QtWidgets.QVBoxLayout()
+        self.activityFeedLayout.setContentsMargins(10, 10, 10, 10)
+        self.activityFeed.setLayout(self.activityFeedLayout)
+        self.activityFeed.setGeometry(930, 110, 300, 500)
+        self.activityFeed.setStyleSheet(
+            "QGroupBox {border:3px solid black;background-color:rgba(0,0,0,0.6)}")
+
+        self.activityHeaderLabel = QtWidgets.QGroupBox(self)
+        self.activityHeaderLabelLayout = QtWidgets.QVBoxLayout()
+        self.activityHeaderLabel.setLayout(self.activityHeaderLabelLayout)
+        self.activityHeaderLabel.setGeometry(915, 70, 200, 50)
+        self.activityHeaderLabel.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.startMenu = QtWidgets.QGroupBox(self)
         self.startMenuLayout = QtWidgets.QVBoxLayout()
@@ -65,7 +79,6 @@ class QueueWindow(QtWidgets.QWidget):
         self.startMenu.setGeometry(600, 600, 675, 100)
         self.startMenu.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
-
 
         self.initUIContent(jobList)
 
@@ -88,13 +101,19 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBarLayout.addWidget(self.exitButton)
 
         self.headerMenuLayout.addWidget(QtWidgets.QLabel(
-            "FFXIV Craft Manager Beta : Version 0.0.1"))
+            "FFXIV Craft Manager Beta : Version 0.0.3"))
 
         self.currentJobLabel = QtWidgets.QLabel("Current Joblist")
         self.currentJobLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.currentJobLabel.setStyleSheet(
             "background-color: rgba(0, 0, 0, 0.6);color:white;}")
         self.headerLabelLayout.addWidget(self.currentJobLabel)
+
+        self.currentActivityLabel = QtWidgets.QLabel("Activity feed")
+        self.currentActivityLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.currentActivityLabel.setStyleSheet(
+            "background-color: rgba(0, 0, 0, 0.6);color:white;}")
+        self.activityHeaderLabelLayout.addWidget(self.currentActivityLabel)
 
         self.addJob(jobList)
         self.startButton = QtWidgets.QPushButton("Start the bulk crafting!")
@@ -111,7 +130,14 @@ class QueueWindow(QtWidgets.QWidget):
         self.creationMenuLayout.addWidget(AddJobFromRecurrentButton())
 
     def generateJobProcessor(self):
-        jobProcessor = JobProcessor(self.nativeParentWidget().jobList)
-        self.worker = Worker(JobProcessor(
-            self.nativeParentWidget().jobList).start)
+        jobProcessor = JobProcessor(self.nativeParentWidget().jobList, self)
+        self.worker = Worker(jobProcessor.start)
+        self.worker.signals.result.connect(self.addActivityOnFeed)
+        self.worker.signals.finished.connect(self.addActivityOnFeed)
+        self.worker.signals.progress.connect(self.addActivityOnFeed)
         self.threadpool.start(self.worker)
+
+    def addActivityOnFeed(self, message):
+        self.activityCue = QtWidgets.QLabel(message)
+        self.activityCue.setStyleSheet("color : white; ")
+        self.activityFeedLayout.addWidget(self.activityCue)
