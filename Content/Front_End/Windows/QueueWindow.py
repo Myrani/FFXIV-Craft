@@ -25,7 +25,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1200, -20, 75, 50)
+        self.systemBar.setGeometry(1210, -10, 75, 50)
         self.systemBar.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
