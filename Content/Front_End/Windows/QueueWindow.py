@@ -53,7 +53,7 @@ class QueueWindow(QtWidgets.QWidget):
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
-        self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
+        self.jobMenuLayout.setContentsMargins(0, 0, 0, 0)
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(225, 110, 700, 500)
         self.jobMenu.setStyleSheet("QGroupBox {border:3px solid black;}")
@@ -103,7 +103,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.systemBarLayout.addWidget(self.exitButton)
 
         self.headerMenuLayout.addWidget(QtWidgets.QLabel(
-            "FFXIV Craft Manager Beta : Version 0.0.4"))
+            "FFXIV Craft Manager Beta : Version 0.0.5"))
 
         self.currentJobLabel = QtWidgets.QLabel("Current Joblist")
         self.currentJobLabel.setAlignment(QtCore.Qt.AlignCenter)

@@ -3,13 +3,15 @@ import os
 
 
 class Job():
-    def __init__(self, outfit, item, quantity, macro, timestop):
+    def __init__(self, outfit, item, quantity, macro, timestop, lowQuality, highQuality):
         self.outfit = outfit
         self.item = item
         self.quantity = quantity
         self.macro = macro
         self.timeStop = timestop
         self.recurrent = False
+        self.lowQuality = lowQuality
+        self.highQuality = highQuality
 
     def setOutfit(self, content):
         self.outfit = content
@@ -25,6 +27,12 @@ class Job():
 
     def setTimeStop(self, content):
         self.timeStop = content
+
+    def setLowQuality(self, content):
+        self.lowQuality = content
+
+    def setHighQuality(self, content):
+        self.highQuality = content
 
     def swapRecurrent(self):
         self.recurrent = not self.recurrent

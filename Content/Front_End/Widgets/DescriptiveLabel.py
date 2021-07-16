@@ -8,8 +8,8 @@ import sys
 class DescriptiveLabel(QtWidgets.QWidget):
     def __init__(self, description, value, parent=None):
         super().__init__(parent=parent)
-        self.setMinimumSize(QtCore.QSize(0, 0))
-        self.setMaximumSize(QtCore.QSize(150, 75))
+        self.setMinimumSize(QtCore.QSize(250, 0))
+        self.setMaximumSize(QtCore.QSize(250, 75))
         self.description = description
         self.value = value
         self.initUI()

@@ -13,13 +13,15 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.setFixedSize(QtCore.QSize(650, 100))
         self.container = QtWidgets.QWidget()
         self.layout = QtWidgets.QHBoxLayout(self.container)
-
+        self.layout.setContentsMargins(0, 0, 0, 0)
         self.job = job
         self.outfit = job.outfit
         self.item = job.item
         self.quantity = job.quantity
         self.macro = job.macro
         self.timeStop = job.timeStop
+        self.lowQuality = job.lowQuality
+        self.highQuality = job.highQuality
 
         self.setLayout(self.layout)
         self.initUI()
@@ -50,6 +52,14 @@ class JobLabelWithRemove(QtWidgets.QWidget):
         self.timeStopLabel = DescriptiveLabel(
             "Time", str(self.timeStop)+" s")
         self.layout.addWidget(self.timeStopLabel)
+
+        self.lowQualityLabel = DescriptiveLabel(
+            "LQ", str(self.lowQuality))
+        self.layout.addWidget(self.lowQualityLabel)
+
+        self.highQualityLabel = DescriptiveLabel(
+            "HQ", str(self.highQuality))
+        self.layout.addWidget(self.highQualityLabel)
 
         self.removeButton = QtWidgets.QPushButton("X")
         self.removeButton.setStyleSheet(

@@ -30,17 +30,30 @@ class JobCreationWindow(QtWidgets.QMainWindow):
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(10, 30, 675, 500)
+        self.jobMenu.setStyleSheet(
+            "QGroupBox {border:3px solid black;background-color:rgba(0,0,0,0.6);} QGroupBox > QLabel{color:white;}")
+
+        self.qualityMenu = QtWidgets.QGroupBox(self)
+        self.qualityMenuLayout = QtWidgets.QGridLayout()
+        self.qualityMenuLayout.setContentsMargins(10, 10, 10, 10)
+        self.qualityMenu.setLayout(self.qualityMenuLayout)
+        self.qualityMenu.setGeometry(700, 30, 500, 500)
+        self.qualityMenu.setStyleSheet(
+            "QGroupBox {border:3px solid black;background-color:rgba(0,0,0,0.6);} QGroupBox > QLabel{color:white;}")
 
         self.navigationMenu = QtWidgets.QGroupBox(self)
         self.navigationMenuLayout = QtWidgets.QGridLayout()
         self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.navigationMenu.setLayout(self.navigationMenuLayout)
-        self.navigationMenu.setGeometry(10, 525, 675, 200)
+        self.navigationMenu.setGeometry(700, 550, 500, 150)
+        self.navigationMenu.setStyleSheet(
+            "QGroupBox {border:3px solid black;background-color:rgba(0,0,0,0.6);} QGroupBox > QCheckBox{color:white;}")
 
         self.windowLayout.addLayout(self.jobMenuLayout)
         self.windowLayout.addLayout(self.navigationMenuLayout)
+        self.windowLayout.addLayout(self.qualityMenuLayout)
 
-        self.newJob = Job(11, "string", 0, ["None", "None"], 0)
+        self.newJob = Job(11, "string", 0, ["None", "None"], 0, 3, 0)
         self.initUIContent()
         self.show()
 
@@ -117,6 +130,20 @@ class JobCreationWindow(QtWidgets.QMainWindow):
             "Remember this job for an ulterior use ?")
         self.recurrentCheckBox.stateChanged.connect(self.newJob.swapRecurrent)
         self.navigationMenuLayout.addWidget(self.recurrentCheckBox, 1, 2, 1, 1)
+
+        self.lowQualityLabel = QtWidgets.QLabel("Low quality materials")
+        self.lowQualityDialog = QtWidgets.QLineEdit("3")
+        self.lowQualityDialog.textChanged.connect(
+            lambda: self.newJob.setLowQuality(self.lowQualityDialog.text()))
+        self.qualityMenuLayout.addWidget(self.lowQualityLabel, 0, 0, 1, 1)
+        self.qualityMenuLayout.addWidget(self.lowQualityDialog, 0, 1, 1, 1)
+
+        self.highQualityLabel = QtWidgets.QLabel("High quality materials")
+        self.highQualityDialog = QtWidgets.QLineEdit("0")
+        self.highQualityDialog.textChanged.connect(
+            lambda: self.newJob.setLowQuality(self.highQualityDialog.text()))
+        self.qualityMenuLayout.addWidget(self.highQualityLabel, 1, 0, 1, 1)
+        self.qualityMenuLayout.addWidget(self.highQualityDialog, 1, 1, 1, 1)
 
     def addJob(self):
         self.nativeParentWidget().jobList.append(self.newJob)
