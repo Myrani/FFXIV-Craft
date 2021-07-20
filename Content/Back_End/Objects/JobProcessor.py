@@ -89,8 +89,10 @@ class JobProcessor(QRunnable):
 
         for key, value in job.highQuality.items():
             for i in range(0, value):
-                pyautogui.click(pyautogui.center(
+                pyautogui.moveTo(pyautogui.center(
                     highQualityItemButtonsList[key]))
+                self.slowClick(0.2)
+
 
     def fabricate(self):
         self.fabricationButton = pyautogui.center(
@@ -112,7 +114,7 @@ class JobProcessor(QRunnable):
             self.changeCurrentJobSpecs(job)
             self.equipOutfit()
             self.searchItem()
-            self.adjustmaterialsQuality(job)
+            self.adjustMaterialsQuality(job)
             for i in range(0, self.currentQuantity):
                 self.fabricate()
                 self.signals.result.emit(
@@ -126,7 +128,7 @@ class JobProcessor(QRunnable):
         self.signals.result.emit("---- Craft Begin ----")
 
         time.sleep(5)
-        self.adjustMaterialsQuality(self.joblist[0])
-        # self.doJobs()
+
+        self.doJobs()
 
         self.signals.result.emit("---- Craft Ended ----")
