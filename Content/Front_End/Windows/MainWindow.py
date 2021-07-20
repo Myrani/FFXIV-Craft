@@ -16,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(parent=parent)
         self.setGeometry(10, 10, 1280, 720)
         self.jobList = []
+        self.craftMaterials = 0
 
         # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
@@ -53,7 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
 
     def startJobCreationWindow(self):
-        self.jobCreationWindow = JobCreationWindow()
+        self.jobCreationWindow = JobCreationWindow(parent=self)
         self.setCentralWidget(self.jobCreationWindow)
         self.show()
 

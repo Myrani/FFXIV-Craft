@@ -28,11 +28,13 @@ class Job():
     def setTimeStop(self, content):
         self.timeStop = content
 
-    def setLowQuality(self, content):
-        self.lowQuality = content
+    def setLowQuality(self, index, content):
+        self.lowQuality[index] = int(content)
+        print(self.lowQuality)
 
-    def setHighQuality(self, content):
-        self.highQuality = content
+    def setHighQuality(self, index, content):
+        self.highQuality[index] = int(content)
+        print(self.highQuality)
 
     def swapRecurrent(self):
         self.recurrent = not self.recurrent

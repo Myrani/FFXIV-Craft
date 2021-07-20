@@ -101,6 +101,8 @@ class JobProcessor(QRunnable):
             self.searchItem()
             for i in range(0, self.currentQuantity):
                 self.fabricate()
+                self.signals.result.emit(
+                    "Crafted : ", self.currentItem, "Item number ", i, "/", self.currentQuantity)
             self.cleanSearchbar()
 
         print("All jobs done !!!")

@@ -8,7 +8,7 @@ import sys
 class AddJobButton(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(AddJobButton, self).__init__(parent=parent)
-        self.setFixedSize(QtCore.QSize(200, 100))
+        self.setFixedSize(QtCore.QSize(200, 200))
         self.container = QtWidgets.QWidget()
         self.layout = QtWidgets.QHBoxLayout(self.container)
 

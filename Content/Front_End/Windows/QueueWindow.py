@@ -44,12 +44,12 @@ class QueueWindow(QtWidgets.QWidget):
             "QGroupBox {border:0px solid black;}")
 
         self.creationMenu = QtWidgets.QGroupBox(self)
-        self.creationMenuLayout = QtWidgets.QVBoxLayout()
+        self.creationMenuLayout = QtWidgets.QGridLayout()
         self.creationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.creationMenu.setLayout(self.creationMenuLayout)
-        self.creationMenu.setGeometry(10, 110, 250, 400)
+        self.creationMenu.setGeometry(10, 100, 250, 400)
         self.creationMenu.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+            "QGridLayout {border:0px solid black;}")
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
@@ -121,9 +121,10 @@ class QueueWindow(QtWidgets.QWidget):
         for job in jobList:
             self.jobMenuLayout.addWidget(
                 JobLabelWithRemove(job))
-        self.creationMenuLayout.addWidget(AddJobButton())
-        self.creationMenuLayout.addWidget(AddJobFromRecurrentButton())
-        self.creationMenuLayout.addWidget(StartJobsButton(self))
+        self.creationMenuLayout.addWidget(AddJobButton(), 0, 0, 1, 1)
+        self.creationMenuLayout.addWidget(
+            AddJobFromRecurrentButton(), 1, 0, 1, 1)
+        self.creationMenuLayout.addWidget(StartJobsButton(self), 2, 0, 1, 1)
 
     def generateJobProcessor(self):
         self.worker = JobProcessor(self.nativeParentWidget().jobList, self)
