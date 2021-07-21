@@ -20,7 +20,8 @@ class CraftMaterial(QtWidgets.QWidget):
         self.qualityMenu.setStyleSheet(
             "background-color: transparent:color :white")
 
-        self.itemLabel = QtWidgets.QLabel("Item " + str(self.index) + " specs")
+        self.itemLabel = QtWidgets.QLabel(
+            "Item " + str(self.index+1) + " specs")
         self.lowQualityLabel = QtWidgets.QLabel("Low quality materials")
         self.lowQualityDialog = QtWidgets.QLineEdit("3")
         self.lowQualityDialog.textChanged.connect(

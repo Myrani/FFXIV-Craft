@@ -79,6 +79,19 @@ class JobProcessor(QRunnable):
         pyautogui.click(pyautogui.center(
             pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/item_found_color.PNG', confidence=0.9)))
 
+    def adjustMaterialsQuality(self, job):
+        time.sleep(0.5)
+        highQualityLabelPlace = pyautogui.locateOnScreen(
+            'Content/Back_End/Visual_Ressources/HQ.PNG', confidence=0.9)
+        time.sleep(0.5)
+        highQualityItemButtonsList = list(pyautogui.locateAllOnScreen(
+            'Content/Back_End/Visual_Ressources/quality_button.PNG', confidence=0.9, region=(highQualityLabelPlace[0], highQualityLabelPlace[1], 30, 2000)))
+
+        for key, value in job.highQuality.items():
+            for i in range(0, value):
+                pyautogui.click(pyautogui.center(
+                    highQualityItemButtonsList[key]))
+
     def fabricate(self):
         self.fabricationButton = pyautogui.center(
             pyautogui.locateOnScreen('Content/Back_End/Visual_Ressources/fabricate.PNG', confidence=0.9))
@@ -99,6 +112,7 @@ class JobProcessor(QRunnable):
             self.changeCurrentJobSpecs(job)
             self.equipOutfit()
             self.searchItem()
+            self.adjustmaterialsQuality(job)
             for i in range(0, self.currentQuantity):
                 self.fabricate()
                 self.signals.result.emit(
@@ -112,8 +126,7 @@ class JobProcessor(QRunnable):
         self.signals.result.emit("---- Craft Begin ----")
 
         time.sleep(5)
-        self.testVisualCues()
-        # self.setupVisualCues()
-        self.doJobs()
+        self.adjustMaterialsQuality(self.joblist[0])
+        # self.doJobs()
 
         self.signals.result.emit("---- Craft Ended ----")

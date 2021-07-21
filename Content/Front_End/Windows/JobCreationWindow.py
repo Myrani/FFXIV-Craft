@@ -145,7 +145,7 @@ class JobCreationWindow(QtWidgets.QWidget):
         print(self.nativeParentWidget())
         for i in range(0, self.nativeParentWidget().craftMaterials):
             self.qualityMenuLayout.addWidget(
-                CraftMaterial(self.newJob, i+1))
+                CraftMaterial(self.newJob, i))
 
     def updateCraftMaterialsVariable(self, value):
         self.nativeParentWidget().craftMaterials = int(value)
