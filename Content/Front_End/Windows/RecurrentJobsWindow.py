@@ -31,19 +31,26 @@ class RecurrentJobsWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1200, -20, 75, 50)
+        self.systemBar.setGeometry(1210, -10, 75, 50)
+        self.systemBar.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
+
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(10, 10, 1200, 500)
+        self.jobMenu.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.navigationMenu = QtWidgets.QGroupBox(self)
         self.navigationMenuLayout = QtWidgets.QGridLayout()
         self.navigationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.navigationMenu.setLayout(self.navigationMenuLayout)
         self.navigationMenu.setGeometry(10, 600, 675, 100)
+        self.navigationMenu.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.minimizeButton = QtWidgets.QPushButton("-")
         self.minimizeButton.setMinimumSize(QtCore.QSize(20, 20))
@@ -51,6 +58,10 @@ class RecurrentJobsWindow(QtWidgets.QWidget):
         self.minimizeButton.clicked.connect(
             lambda: QtWidgets.QMainWindow.showMinimized(self.nativeParentWidget()))
         self.systemBarLayout.addWidget(self.minimizeButton)
+        self.minimizeButton.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
+
+
 
         self.exitButton = QtWidgets.QPushButton("X")
         self.exitButton.setMinimumSize(QtCore.QSize(20, 20))

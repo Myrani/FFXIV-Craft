@@ -23,7 +23,7 @@ class CraftMaterial(QtWidgets.QWidget):
         self.itemLabel = QtWidgets.QLabel(
             "Item " + str(self.index+1) + " specs")
         self.lowQualityLabel = QtWidgets.QLabel("Low quality materials")
-        self.lowQualityDialog = QtWidgets.QLineEdit("3")
+        self.lowQualityDialog = QtWidgets.QLineEdit("0")
         self.lowQualityDialog.textChanged.connect(
             lambda: self.job.setLowQuality(self.index, self.lowQualityDialog.text()))
         self.qualityMenuLayout.addWidget(self.itemLabel, 0, 0, 1, 1)

@@ -49,7 +49,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.creationMenu.setLayout(self.creationMenuLayout)
         self.creationMenu.setGeometry(10, 100, 250, 400)
         self.creationMenu.setStyleSheet(
-            "QGridLayout {border:0px solid black;}")
+            "QGroupBox {border:0px solid black;}")
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QVBoxLayout()
@@ -57,6 +57,7 @@ class QueueWindow(QtWidgets.QWidget):
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(225, 110, 700, 500)
         self.jobMenu.setStyleSheet("QGroupBox {border:3px solid black;}")
+
 
         self.activityFeed = QtWidgets.QGroupBox(self)
         self.activityFeedLayout = QtWidgets.QVBoxLayout()

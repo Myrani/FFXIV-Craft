@@ -45,6 +45,11 @@ class JobProcessor(QRunnable):
         print(self.outfitButton)
         print(self.searchBar)
 
+
+    def testActivityFeed(self):
+        while True:
+            self.signals.result.emit("test ")
+            time.sleep(0.5)
     def equipOutfit(self):
 
         pyautogui.press("p")
@@ -130,5 +135,7 @@ class JobProcessor(QRunnable):
         time.sleep(5)
 
         self.doJobs()
+        #self.testActivityFeed()
+
 
         self.signals.result.emit("---- Craft Ended ----")

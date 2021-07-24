@@ -23,7 +23,9 @@ class JobCreationWindow(QtWidgets.QWidget):
         self.systemBar = QtWidgets.QGroupBox(self)
         self.systemBarLayout = QtWidgets.QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1200, -20, 75, 50)
+        self.systemBar.setGeometry(1210, -10, 75, 50)
+        self.systemBar.setStyleSheet(
+            "QGroupBox {border:0px solid black;}")
 
         self.jobMenu = QtWidgets.QGroupBox(self)
         self.jobMenuLayout = QtWidgets.QGridLayout()
@@ -143,13 +145,15 @@ class JobCreationWindow(QtWidgets.QWidget):
             self.craftMaterialQuantityDialog)
 
         print(self.nativeParentWidget())
-        for i in range(0, self.nativeParentWidget().craftMaterials):
-            self.qualityMenuLayout.addWidget(
-                CraftMaterial(self.newJob, i))
+        if isinstance(self.nativeParentWidget().craftMaterials,int):
+            for i in range(0, self.nativeParentWidget().craftMaterials):
+                self.qualityMenuLayout.addWidget(
+                    CraftMaterial(self.newJob, i))
 
     def updateCraftMaterialsVariable(self, value):
-        self.nativeParentWidget().craftMaterials = int(value)
-        self.nativeParentWidget().startJobCreationWindow()
+        if value != "":
+            self.nativeParentWidget().craftMaterials = int(value)
+            self.nativeParentWidget().startJobCreationWindow()
 
     def addJob(self):
         self.nativeParentWidget().jobList.append(self.newJob)
