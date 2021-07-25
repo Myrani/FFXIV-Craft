@@ -1,35 +1,46 @@
+
+import os
 import sys
 
 
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-from PyQt5 import QtGui
-import os
+from PyQt5.QtWidgets import QMainWindow,QGraphicsOpacityEffect,QLabel, QDesktopWidget
+from PyQt5.QtCore import Qt,QPoint
+from PyQt5.QtGui import QPixmap
+
 from Content.Front_End.Windows.QueueWindow import QueueWindow
 from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
-from Content.Back_End.Objects.Job import Job
+
+def resource_path(relative_path):
+    """ Get the absolute path to the resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
-class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, app, parent=None):
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent=parent)
         self.setGeometry(10, 10, 1280, 720)
         self.jobList = []
         self.craftMaterials = 0
 
-        # self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.opacity_effect = QtWidgets.QGraphicsOpacityEffect()
+        self.opacity_effect = QGraphicsOpacityEffect()
         self.setWindowOpacity(0.95)
 
-        self.label_background = QtWidgets.QLabel("transparent ", self)
+        self.label_background = QLabel("transparent ", self)
         self.label_background.setGeometry(0, 0, 1280, 720)
         #self.label_background.move(0, 0)
-        pixmap = QtGui.QPixmap(
-            'Content/Back_End/Visual_Ressources/FFXIV.jpeg').scaled(self.size())
+        pixmap = QPixmap(
+            resource_path('Visual_Ressources\\FFXIV.jpeg')).scaled(self.size())
         self.label_background.setPixmap(pixmap)
 
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(Qt.FramelessWindowHint)
         # self.setStyleSheet("background-color:#6d3a91;")
 
         self.startQueueWindow()
@@ -44,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.oldPos = event.globalPos()
 
     def mouseMoveEvent(self, event):
-        delta = QtCore.QPoint(event.globalPos() - self.oldPos)
+        delta = QPoint(event.globalPos() - self.oldPos)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
 

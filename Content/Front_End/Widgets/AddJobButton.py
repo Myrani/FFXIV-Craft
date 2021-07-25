@@ -1,16 +1,14 @@
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-from PyQt5 import QtGui
-
-import sys
+from PyQt5.QtWidgets import QWidget,QHBoxLayout,QPushButton
+from PyQt5.QtCore import QSize
 
 
-class AddJobButton(QtWidgets.QWidget):
+
+class AddJobButton(QWidget):
     def __init__(self, parent=None):
         super(AddJobButton, self).__init__(parent=parent)
-        self.setFixedSize(QtCore.QSize(200, 200))
-        self.container = QtWidgets.QWidget()
-        self.layout = QtWidgets.QHBoxLayout(self.container)
+        self.setFixedSize(QSize(200, 200))
+        self.container = QWidget()
+        self.layout = QHBoxLayout(self.container)
 
         self.setLayout(self.layout)
         self.initUI()
@@ -19,19 +17,19 @@ class AddJobButton(QtWidgets.QWidget):
             "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
 
     def initUI(self):
-        self.addButton = QtWidgets.QPushButton("+ Create a new job ")
+        self.addButton = QPushButton("+ Create a new job ")
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startJobCreationWindow())
         self.layout.addWidget(self.addButton)
 
 
-class AddJobFromRecurrentButton(QtWidgets.QWidget):
+class AddJobFromRecurrentButton(QWidget):
     def __init__(self, parent=None):
         super(AddJobFromRecurrentButton, self).__init__(parent=parent)
-        self.setFixedSize(QtCore.QSize(200, 100))
-        self.container = QtWidgets.QWidget()
-        self.layout = QtWidgets.QHBoxLayout(self.container)
+        self.setFixedSize(QSize(200, 100))
+        self.container = QWidget()
+        self.layout = QHBoxLayout(self.container)
 
         self.setLayout(self.layout)
         self.initUI()
@@ -40,20 +38,20 @@ class AddJobFromRecurrentButton(QtWidgets.QWidget):
             "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
 
     def initUI(self):
-        self.addButton = QtWidgets.QPushButton("+ Add a recurrent job ")
+        self.addButton = QPushButton("+ Add a recurrent job ")
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startRecurrentJobsWindow())
         self.layout.addWidget(self.addButton)
 
 
-class StartJobsButton(QtWidgets.QWidget):
+class StartJobsButton(QWidget):
     def __init__(self, parent):
         super(StartJobsButton, self).__init__()
         self.parent = parent
-        self.setFixedSize(QtCore.QSize(200, 100))
-        self.container = QtWidgets.QWidget()
-        self.layout = QtWidgets.QHBoxLayout(self.container)
+        self.setFixedSize(QSize(200, 100))
+        self.container = QWidget()
+        self.layout = QHBoxLayout(self.container)
 
         self.setLayout(self.layout)
         self.initUI()
@@ -62,7 +60,7 @@ class StartJobsButton(QtWidgets.QWidget):
             "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
 
     def initUI(self):
-        self.addButton = QtWidgets.QPushButton("- Start Crafting -")
+        self.addButton = QPushButton("- Start Crafting -")
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.parent.generateJobProcessor())
