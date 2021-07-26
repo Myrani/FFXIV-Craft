@@ -29,7 +29,7 @@ Non standard python3 library used for any potential tweeks you wanna add !
 How does the program works ?
 
 There's 3 steps : 
-  - Create a new "Job" by clicking on the ~create a job button~
+  - Create a new "Job" by clicking on the ~ create a job button ~
   - Fill in all the info the craft need :
     - The outfit you want to wear to craft this job 
     - The item name you want to craft
