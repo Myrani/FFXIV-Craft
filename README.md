@@ -33,7 +33,7 @@ There's 3 steps :
   - Fill in all the info the craft need :
     - The outfit you want to wear to craft this job 
     - The item name you want to craft
-    - The quantity of said to craft
+    - The quantity of said item to craft
     - The keys to proc the macro in plain text and in proc order (first: ctrl , second: &)
     - The usual time your macro need to proc 
     - You can personalize the quality of each craft components by specifying it quality Area,by default it will just press the FFXIV Fabricate button
