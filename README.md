@@ -38,6 +38,6 @@ There's 3 steps :
     - The usual time your macro need to proc 
     - You can personalize the quality of each craft components by specifying it quality Area,by default it will just press the FFXIV Fabricate button
       otherwise it will mimic the top to bottom quality settings
-    Add it to the Current planned Joblist, and you can save it for a later use if you select the "remember" option to save you some time next time
+    - Add it to the Current planned Joblist, and you can save it for a later use if you select the "remember" option to save you some time next time
   - Once every jobs are specified , press the ~ Start Crafting ~ button, once done, you'll have 5 seconds to go back on the game window after that the manager          will start Working !
     
