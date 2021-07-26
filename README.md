@@ -6,11 +6,20 @@ This project was born on a whim, didn't find any good craft manager that wasn't 
 
 The soft is still in beta, all the main functions are available but if you find any bug, please do report them ! even smaller ones !
 
+If you just want to use the software and are not interested in the code, all good !
+
+  - Just use the .exe file like a regular program and enjoy !  
+
 Non standard python3 library used for any potential tweeks you wanna add !
+
+  - Quick install-All command : 
   
+    pip3 install -r requirements.txt
+
   - Pyautogui : https://pyautogui.readthedocs.io/en/latest/
     
     Quick install -> pip3 install pyautogui
+  
   - PyQt5 : https://doc.qt.io/qtforpython/
     
     Quick install -> pip3 install PyQt5

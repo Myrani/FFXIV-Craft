@@ -4,6 +4,7 @@ import os
 import sys
 from Content.Back_End.Objects.WorkerSignals import WorkerSignals
 from PyQt5.QtCore import QRunnable, pyqtSlot
+
 def resource_path(relative_path):
     """ Get the absolute path to the resource, works for dev and for PyInstaller """
     try:
