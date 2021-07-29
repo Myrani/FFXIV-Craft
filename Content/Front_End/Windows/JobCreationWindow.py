@@ -1,8 +1,7 @@
 
 
-
-from PyQt5.QtWidgets import QWidget,QGridLayout,QGroupBox,QHBoxLayout,QVBoxLayout,QPushButton,QMainWindow,QLabel,QLineEdit,QCheckBox
-from PyQt5.QtCore import QSize,QCoreApplication
+from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel, QLineEdit, QCheckBox
+from PyQt5.QtCore import QSize, QCoreApplication
 
 
 from Content.Front_End.Widgets.CraftMaterial import CraftMaterial
@@ -90,7 +89,8 @@ class JobCreationWindow(QWidget):
         self.jobMenuLayout.addWidget(self.itemDialog, 3, 0, 1, 1)
 
         self.quantityLabel = QLabel("Item Quantity")
-        self.quantityDialog = QLineEdit("Quantity")
+        self.quantityDialog = QLineEdit()
+        self.quantityDialog.setPlaceholderText("Custom")
         self.quantityDialog.textChanged.connect(
             lambda: self.newJob.setQuantity(self.quantityDialog.text()))
 
@@ -113,6 +113,17 @@ class JobCreationWindow(QWidget):
         self.timeStopDialog = QLineEdit("time")
         self.timeStopDialog.textChanged.connect(
             lambda: self.newJob.setTimeStop(self.timeStopDialog.text()))
+
+        self.defaultDialog35s = QPushButton("35 Seconds")
+        self.defaultDialog35s.clicked.connect(
+            lambda: self.newJob.setTimeStop("35"))
+
+        self.defaultDialog70s = QPushButton("70 Seconds")
+        self.defaultDialog70s.clicked.connect(
+            lambda: self.newJob.setTimeStop("70"))
+
+        self.jobMenuLayout.addWidget(self.defaultDialog35s, 9, 1, 1, 1)
+        self.jobMenuLayout.addWidget(self.defaultDialog70s, 9, 1, 2, 1)
 
         self.jobMenuLayout.addWidget(self.timeStopLabel, 8, 0, 1, 1)
         self.jobMenuLayout.addWidget(self.timeStopDialog, 9, 0, 1, 1)
@@ -144,7 +155,7 @@ class JobCreationWindow(QWidget):
             self.craftMaterialQuantityDialog)
 
         print(self.nativeParentWidget())
-        if isinstance(self.nativeParentWidget().craftMaterials,int):
+        if isinstance(self.nativeParentWidget().craftMaterials, int):
             for i in range(0, self.nativeParentWidget().craftMaterials):
                 self.qualityMenuLayout.addWidget(
                     CraftMaterial(self.newJob, i))

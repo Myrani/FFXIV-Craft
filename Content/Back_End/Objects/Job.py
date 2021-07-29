@@ -26,6 +26,7 @@ class Job():
         self.macro[indent] = content
 
     def setTimeStop(self, content):
+        print(content)
         self.timeStop = content
 
     def setLowQuality(self, index, content):
