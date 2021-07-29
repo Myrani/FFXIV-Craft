@@ -3,13 +3,15 @@ import os
 import sys
 
 
-from PyQt5.QtWidgets import QMainWindow,QGraphicsOpacityEffect,QLabel, QDesktopWidget
-from PyQt5.QtCore import Qt,QPoint
+from PyQt5.QtWidgets import QMainWindow, QGraphicsOpacityEffect, QLabel, QDesktopWidget
+from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtGui import QPixmap
 
 from Content.Front_End.Windows.QueueWindow import QueueWindow
 from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
+from Content.Front_End.Widgets.MenuButton import MenuButton
+
 
 def resource_path(relative_path):
     """ Get the absolute path to the resource, works for dev and for PyInstaller """
@@ -22,14 +24,17 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent=parent)
         self.setGeometry(10, 10, 1280, 720)
+
+        # Persistent parametters
         self.jobList = []
         self.craftMaterials = 0
+        self.menuButtons = [MenuButton()]
 
+        # Window Opacity
         self.opacity_effect = QGraphicsOpacityEffect()
         self.setWindowOpacity(0.95)
 

@@ -7,6 +7,7 @@ from PyQt5.QtCore import QSize, QCoreApplication
 from Content.Front_End.Widgets.CraftMaterial import CraftMaterial
 from Content.Back_End.Objects.Job import Job
 
+
 # Instantiation du Front_End
 
 
@@ -144,7 +145,7 @@ class JobCreationWindow(QWidget):
         self.navigationMenuLayout.addWidget(self.recurrentCheckBox, 1, 2, 1, 1)
 
         self.craftMaterialQuantityLabel = QLabel(
-            "Personalize the quality of each materials")
+            "Number of materials for the craft")
         self.craftMaterialQuantityDialog = QLineEdit(
             str(self.nativeParentWidget().craftMaterials))
         self.craftMaterialQuantityDialog.textChanged.connect(

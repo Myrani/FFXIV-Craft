@@ -5,6 +5,7 @@ import sys
 from Content.Back_End.Objects.WorkerSignals import WorkerSignals
 from PyQt5.QtCore import QRunnable, pyqtSlot
 
+
 def resource_path(relative_path):
     """ Get the absolute path to the resource, works for dev and for PyInstaller """
     try:
@@ -55,11 +56,11 @@ class JobProcessor(QRunnable):
         print(self.outfitButton)
         print(self.searchBar)
 
-
     def testActivityFeed(self):
         while True:
             self.signals.result.emit("test ")
             time.sleep(0.5)
+
     def equipOutfit(self):
 
         pyautogui.press("p")
@@ -75,6 +76,10 @@ class JobProcessor(QRunnable):
         self.doubleClick()
         time.sleep(1)
         pyautogui.press("p")
+
+    def repairOutfit(self):
+
+        pass
 
     def cleanSearchbar(self):
         pyautogui.press("n")
@@ -107,7 +112,6 @@ class JobProcessor(QRunnable):
                 pyautogui.moveTo(pyautogui.center(
                     highQualityItemButtonsList[key]))
                 self.slowClick(0.2)
-
 
     def fabricate(self):
         self.fabricationButton = pyautogui.center(
@@ -145,7 +149,6 @@ class JobProcessor(QRunnable):
         time.sleep(5)
 
         self.doJobs()
-        #self.testActivityFeed()
-
+        # self.testActivityFeed()
 
         self.signals.result.emit("---- Craft Ended ----")

@@ -1,9 +1,12 @@
-from PyQt5.QtWidgets import QWidget,QGridLayout,QGroupBox,QHBoxLayout,QVBoxLayout,QPushButton,QMainWindow,QLabel
-from PyQt5.QtCore import QThreadPool,QSize,QCoreApplication,Qt
+from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel
+from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt
 
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
 from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton
+from Content.Front_End.Widgets.MenuButton import MenuButton
+
 from Content.Back_End.Objects.JobProcessor import JobProcessor
+
 
 # Instantiation du Front_End
 
@@ -52,7 +55,6 @@ class QueueWindow(QWidget):
         self.jobMenu.setLayout(self.jobMenuLayout)
         self.jobMenu.setGeometry(225, 110, 700, 500)
         self.jobMenu.setStyleSheet("QGroupBox {border:3px solid black;}")
-
 
         self.activityFeed = QGroupBox(self)
         self.activityFeedLayout = QVBoxLayout(self)
@@ -113,14 +115,17 @@ class QueueWindow(QWidget):
             "background-color: rgba(0, 0, 0, 0.6);color:white;}")
         self.activityHeaderLabelLayout.addWidget(self.currentActivityLabel)
 
-    def addJob(self, jobList):
-        for job in jobList:
-            self.jobMenuLayout.addWidget(
-                JobLabelWithRemove(job))
         self.creationMenuLayout.addWidget(AddJobButton(), 0, 0, 1, 1)
         self.creationMenuLayout.addWidget(
             AddJobFromRecurrentButton(), 1, 0, 1, 1)
         self.creationMenuLayout.addWidget(StartJobsButton(self), 2, 0, 1, 1)
+        self.creationMenuLayout.addWidget(
+            self.nativeParentWidget().menuButton[0], 3, 0, 1, 1)
+
+    def addJob(self, jobList):
+        for job in jobList:
+            self.jobMenuLayout.addWidget(
+                JobLabelWithRemove(job))
 
     def generateJobProcessor(self):
         self.worker = JobProcessor(self.nativeParentWidget().jobList, self)

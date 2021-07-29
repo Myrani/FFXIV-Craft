@@ -1,6 +1,5 @@
-from PyQt5.QtWidgets import QWidget,QHBoxLayout,QPushButton
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton
 from PyQt5.QtCore import QSize
-
 
 
 class AddJobButton(QWidget):
@@ -18,7 +17,6 @@ class AddJobButton(QWidget):
 
     def initUI(self):
         self.addButton = QPushButton("+ Create a new job ")
-        print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startJobCreationWindow())
         self.layout.addWidget(self.addButton)
