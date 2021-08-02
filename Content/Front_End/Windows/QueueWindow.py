@@ -1,25 +1,25 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel
-from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt
+from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt, pyqtSlot
 
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
-from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton
+from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton,AddRepairButton
 from Content.Front_End.Widgets.MenuButton import MenuButton
 
 from Content.Back_End.Objects.JobProcessor import JobProcessor
-
+import sip
 
 # Instantiation du Front_End
 
 
 class QueueWindow(QWidget):
-    def __init__(self, jobList, parent=None):
+    def __init__(self, jobList,activityList,menuList, parent=None):
         super(QueueWindow, self).__init__(parent)
         self.threadpool = QThreadPool()
+        self.parentWidget = self.parentWidget()
+        self.initUI(jobList,activityList,menuList)
 
-        self.initUI(jobList)
-
-    def initUI(self, jobList):
-
+    def initUI(self, jobList,activityList,menuList):
+        
         self.systemBar = QGroupBox(self)
         self.systemBarLayout = QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
@@ -78,13 +78,12 @@ class QueueWindow(QWidget):
         self.startMenu.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
-        self.initUIContent(jobList)
+        self.initUIContent(jobList,activityList,menuList)
 
         self.show()
 
-    def initUIContent(self, jobList):
+    def initUIContent(self, jobList,activityList,menuList):
 
-        self.addJob(jobList)
 
         self.minimizeButton = QPushButton("-")
         self.minimizeButton.setMinimumSize(QSize(20, 20))
@@ -101,7 +100,7 @@ class QueueWindow(QWidget):
         self.systemBarLayout.addWidget(self.exitButton)
 
         self.headerMenuLayout.addWidget(QLabel(
-            "FFXIV Craft Manager Beta : Version 0.0.5"))
+            "FFXIV Craft Manager Beta : Version 0.0.10"))
 
         self.currentJobLabel = QLabel("Current Joblist")
         self.currentJobLabel.setAlignment(Qt.AlignCenter)
@@ -115,26 +114,43 @@ class QueueWindow(QWidget):
             "background-color: rgba(0, 0, 0, 0.6);color:white;}")
         self.activityHeaderLabelLayout.addWidget(self.currentActivityLabel)
 
-        self.creationMenuLayout.addWidget(AddJobButton(), 0, 0, 1, 1)
+        self.creationMenuLayout.addWidget(AddJobButton(self), 0, 0, 1, 1)
         self.creationMenuLayout.addWidget(
             AddJobFromRecurrentButton(), 1, 0, 1, 1)
-        self.creationMenuLayout.addWidget(StartJobsButton(self), 2, 0, 1, 1)
-        self.creationMenuLayout.addWidget(
-            self.nativeParentWidget().menuButton[0], 3, 0, 1, 1)
+
+        self.creationMenuLayout.addWidget(AddRepairButton(self), 2, 0, 1, 1)
+        self.creationMenuLayout.addWidget(StartJobsButton(self), 3, 0, 1, 1)
+
+
+
+        self.addJob(jobList)
+        self.addActivities(activityList)
+
+
 
     def addJob(self, jobList):
         for job in jobList:
             self.jobMenuLayout.addWidget(
                 JobLabelWithRemove(job))
 
-    def generateJobProcessor(self):
-        self.worker = JobProcessor(self.nativeParentWidget().jobList, self)
-        self.worker.signals.result.connect(self.addActivityOnFeed)
-        self.worker.signals.finished.connect(self.addActivityOnFeed)
-        self.worker.signals.progress.connect(self.addActivityOnFeed)
-        self.threadpool.start(self.worker)
+    def addActivities(self,activitiesList):
+        for activity in activitiesList:
+            if not sip.isdeleted(activity):
+                self.activityFeedLayout.addWidget(activity)
 
-    def addActivityOnFeed(self, message):
-        self.activityCue = QLabel(message)
-        self.activityCue.setStyleSheet("color : white; ")
-        self.activityFeedLayout.addWidget(self.activityCue)
+    def generateJobProcessor(self):
+        self.worker = JobProcessor(self.nativeParentWidget().jobList, parent=self)
+        self.worker.signals.changeText.connect(self.addActivityOnFeed)
+        self.worker.signals.addLabel.connect(self.addLabel)
+        self.worker.run()
+
+    def addLabel(self,message):
+        object = QLabel(message)
+        self.parent().activityList.append(object)
+        self.parent().activityList[-1].setStyleSheet("color : white;")
+        self.parent().startQueueWindow()
+    
+    def addActivityOnFeed(self,message):
+        self.parent().activityList[-1].setText(message)
+        self.parent().startQueueWindow()
+        return None

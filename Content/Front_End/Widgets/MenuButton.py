@@ -1,13 +1,15 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QRect, QSize
 
 
 class MenuButton(QWidget):
 
     def __init__(self, parent=None):
-        super(MenuButton, self).__init__(parent=parent)
-
+        super(MenuButton, self).__init__(parent)
+        print("Menu button ", self.nativeParentWidget())
+        
         self.state = False
+
 
         self.setFixedSize(QSize(200, 100))
         self.container = QWidget()
@@ -21,23 +23,25 @@ class MenuButton(QWidget):
 
     def initUI(self):
         self.menuButton = QPushButton("Window Modulation")
-        self.menuButton.clicked.connect(lambda: self.windowModulation())
+        self.menuButton.clicked.connect(self.windowModulation)
         self.layout.addWidget(self.menuButton)
 
     def windowModulation(self):
-        mainWindowGeometry = self.nativeParentWidget().geometry().getCoords()
+        self.baseCoords = self.nativeParentWidget().geometry().getCoords()
+
         if self.state == False:
             for i in range(0, 150):
-                self.nativeParentWidget().setGeometry(
-                    mainWindowGeometry[0], mainWindowGeometry[1], mainWindowGeometry[2]+i, mainWindowGeometry[3])
+                self.nativeParentWidget().setGeometry(QRect(self.baseCoords[0],  self.baseCoords[1],  self.baseCoords[2]+1,  self.baseCoords[3]))
             self.nativeParentWidget().startQueueWindow()
-            self.state = True
-            return 0
+
         elif self.state == True:
             for i in range(0, 150):
-                self.nativeParentWidget().setGeometry(
-                    mainWindowGeometry[0], mainWindowGeometry[1], mainWindowGeometry[2]-i, mainWindowGeometry[3])
+                self.nativeParentWidget().setGeometry(QRect(self.baseCoords[0],  self.baseCoords[1],  self.baseCoords[2]-1,  self.baseCoords[3]))
 
             self.nativeParentWidget().startQueueWindow()
-            self.state = False
-            return 0
+
+        self.state = not self.state
+
+
+
+            

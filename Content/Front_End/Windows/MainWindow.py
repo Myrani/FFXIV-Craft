@@ -12,27 +12,29 @@ from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
 from Content.Front_End.Widgets.MenuButton import MenuButton
 
-
 def resource_path(relative_path):
     """ Get the absolute path to the resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath(".")
-
+        base_path = os.path.abspath(".") 
+        #"."
+        #"Content\\Back_End\\""
     return os.path.join(base_path, relative_path)
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent=parent)
+    def __init__(self):
+        super(MainWindow, self).__init__()
         self.setGeometry(10, 10, 1280, 720)
-
         # Persistent parametters
         self.jobList = []
+        self.activityList = []
         self.craftMaterials = 0
-        self.menuButtons = [MenuButton()]
+        self.menuButtons = [MenuButton(self)]
+
+
 
         # Window Opacity
         self.opacity_effect = QGraphicsOpacityEffect()
@@ -65,7 +67,7 @@ class MainWindow(QMainWindow):
         self.oldPos = event.globalPos()
 
     def startQueueWindow(self):
-        self.queueWindow = QueueWindow(self.jobList, parent=self)
+        self.queueWindow = QueueWindow(self.jobList,self.activityList,self.menuButtons ,parent=self)
         self.setCentralWidget(self.queueWindow)
         self.show()
 
@@ -75,6 +77,6 @@ class MainWindow(QMainWindow):
         self.show()
 
     def startRecurrentJobsWindow(self):
-        self.recurrentJobsWindow = RecurrentJobsWindow()
+        self.recurrentJobsWindow = RecurrentJobsWindow(parent=self)
         self.setCentralWidget(self.recurrentJobsWindow)
         self.show()

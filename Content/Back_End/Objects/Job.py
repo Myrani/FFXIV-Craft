@@ -1,5 +1,4 @@
 import pickle
-import os
 
 
 class Job():
