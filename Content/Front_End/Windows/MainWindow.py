@@ -18,9 +18,9 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath(".") 
+        base_path = os.path.abspath("Content\\Back_End\\") 
         #"."
-        #"Content\\Back_End\\""
+        #"Content\\Back_End\\"
     return os.path.join(base_path, relative_path)
 
 
@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         self.jobList = []
         self.activityList = []
         self.craftMaterials = 0
-        self.menuButtons = [MenuButton(self)]
+        self.menuButtons = []
 
 
 

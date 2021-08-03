@@ -1,10 +1,11 @@
+from Content.Front_End.Widgets.SystemBar import SystemBar
 from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel
 from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt, pyqtSlot
 
 from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
 from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton,AddRepairButton
 from Content.Front_End.Widgets.MenuButton import MenuButton
-
+from Content.Front_End.Widgets.SystemBar import SystemBar
 from Content.Back_End.Objects.JobProcessor import JobProcessor
 import sip
 
@@ -20,17 +21,12 @@ class QueueWindow(QWidget):
 
     def initUI(self, jobList,activityList,menuList):
         
-        self.systemBar = QGroupBox(self)
-        self.systemBarLayout = QHBoxLayout()
-        self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1210, -10, 75, 50)
-        self.systemBar.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+        self.systemBar = SystemBar(self)
 
         self.headerMenu = QGroupBox(self)
         self.headerMenuLayout = QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
-        self.headerMenu.setGeometry(0, -40, 400, 100)
+        self.headerMenu.setGeometry(0, 660, 400, 100)
         self.headerMenu.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
@@ -45,7 +41,7 @@ class QueueWindow(QWidget):
         self.creationMenuLayout = QGridLayout()
         self.creationMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.creationMenu.setLayout(self.creationMenuLayout)
-        self.creationMenu.setGeometry(10, 100, 250, 400)
+        self.creationMenu.setGeometry(0, 100, 250, 400)
         self.creationMenu.setStyleSheet(
             "QGroupBox {border:0px solid black;}")
 
@@ -85,20 +81,6 @@ class QueueWindow(QWidget):
     def initUIContent(self, jobList,activityList,menuList):
 
 
-        self.minimizeButton = QPushButton("-")
-        self.minimizeButton.setMinimumSize(QSize(20, 20))
-        self.minimizeButton.setMaximumSize(QSize(20, 20))
-        self.minimizeButton.clicked.connect(
-            lambda: QMainWindow.showMinimized(self.nativeParentWidget()))
-        self.systemBarLayout.addWidget(self.minimizeButton)
-
-        self.exitButton = QPushButton("X")
-        self.exitButton.setMinimumSize(QSize(20, 20))
-        self.exitButton.setMaximumSize(QSize(20, 20))
-        self.exitButton.clicked.connect(
-            lambda: QCoreApplication.exit())
-        self.systemBarLayout.addWidget(self.exitButton)
-
         self.headerMenuLayout.addWidget(QLabel(
             "FFXIV Craft Manager Beta : Version 0.0.10"))
 
@@ -115,9 +97,7 @@ class QueueWindow(QWidget):
         self.activityHeaderLabelLayout.addWidget(self.currentActivityLabel)
 
         self.creationMenuLayout.addWidget(AddJobButton(self), 0, 0, 1, 1)
-        self.creationMenuLayout.addWidget(
-            AddJobFromRecurrentButton(), 1, 0, 1, 1)
-
+        self.creationMenuLayout.addWidget(AddJobFromRecurrentButton(), 1, 0, 1, 1)
         self.creationMenuLayout.addWidget(AddRepairButton(self), 2, 0, 1, 1)
         self.creationMenuLayout.addWidget(StartJobsButton(self), 3, 0, 1, 1)
 

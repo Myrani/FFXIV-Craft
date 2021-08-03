@@ -6,7 +6,7 @@ from PyQt5.QtCore import QSize, QCoreApplication
 
 from Content.Front_End.Widgets.CraftMaterial import CraftMaterial
 from Content.Back_End.Objects.Job import Job
-
+from Content.Front_End.Widgets.SystemBar import SystemBar
 
 # Instantiation du Front_End
 
@@ -19,12 +19,8 @@ class JobCreationWindow(QWidget):
     def initUI(self):
         self.windowLayout = QVBoxLayout()
 
-        self.systemBar = QGroupBox(self)
-        self.systemBarLayout = QHBoxLayout()
-        self.systemBar.setLayout(self.systemBarLayout)
-        self.systemBar.setGeometry(1210, -10, 75, 50)
-        self.systemBar.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+        self.systemBar = SystemBar(self)
+        
 
         self.jobMenu = QGroupBox(self)
         self.jobMenuLayout = QGridLayout()
@@ -59,20 +55,6 @@ class JobCreationWindow(QWidget):
         self.show()
 
     def initUIContent(self):
-
-        self.minimizeButton = QPushButton("-")
-        self.minimizeButton.setMinimumSize(QSize(20, 20))
-        self.minimizeButton.setMaximumSize(QSize(20, 20))
-        self.minimizeButton.clicked.connect(
-            lambda: QMainWindow.showMinimized(self.nativeParentWidget()))
-        self.systemBarLayout.addWidget(self.minimizeButton)
-
-        self.exitButton = QPushButton("X")
-        self.exitButton.setMinimumSize(QSize(20, 20))
-        self.exitButton.setMaximumSize(QSize(20, 20))
-        self.exitButton.clicked.connect(
-            lambda: QCoreApplication.exit())
-        self.systemBarLayout.addWidget(self.exitButton)
 
         self.oufitLabel = QLabel("Outfit Number")
         self.oufitDialog = QLineEdit("Outfit")

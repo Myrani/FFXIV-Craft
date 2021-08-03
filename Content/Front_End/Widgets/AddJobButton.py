@@ -18,6 +18,7 @@ class AddJobButton(QWidget):
 
     def initUI(self):
         self.addButton = QPushButton("+ Create a new job ")
+        self.addButton.setFixedSize(200,50)
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startJobCreationWindow())
         self.layout.addWidget(self.addButton)
@@ -42,6 +43,7 @@ class AddRepairButton(QWidget):
         self.nativeParentWidget().startQueueWindow()
     def initUI(self):
         self.addButton = QPushButton("+ Add a Repair All")
+        self.addButton.setFixedSize(200,50)
         self.addButton.clicked.connect(
             lambda: self.addRepairButton())
         self.layout.addWidget(self.addButton)
@@ -61,6 +63,7 @@ class AddJobFromRecurrentButton(QWidget):
 
     def initUI(self):
         self.addButton = QPushButton("+ Add a recurrent job ")
+        self.addButton.setFixedSize(200,50)
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.nativeParentWidget().startRecurrentJobsWindow())
@@ -83,6 +86,7 @@ class StartJobsButton(QWidget):
 
     def initUI(self):
         self.addButton = QPushButton("- Start Crafting -")
+        self.addButton.setFixedSize(200,50)
         print(self.nativeParentWidget())
         self.addButton.clicked.connect(
             lambda: self.parent.generateJobProcessor())
