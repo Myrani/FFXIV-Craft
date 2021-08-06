@@ -8,6 +8,7 @@ class SystemBar(QWidget):
         self.systemBarLayout = QHBoxLayout()
         self.systemBar.setLayout(self.systemBarLayout)
         self.systemBar.setGeometry(-20, -20, 1320, 75)
+        self.systemBar.setContentsMargins(0,0,0,0)
         self.systemBar.setStyleSheet(
         " QGroupBox {background-color:rgba(0,0,0,0.6);border: solid 0px;}")
 
@@ -16,6 +17,7 @@ class SystemBar(QWidget):
         self.optionBarLayout = QHBoxLayout()
         self.optionBar.setLayout(self.optionBarLayout)
         self.optionBar.setMaximumSize(1000, 75)
+        self.optionBar.setContentsMargins(0,0,0,0)
         self.optionBar.setStyleSheet(
         " QGroupBox {background-color:rgba(0,0,0,0);border: solid 0px;}")
 
@@ -36,19 +38,26 @@ class SystemBar(QWidget):
         self.settingsButton.setMinimumSize(QSize(80, 40))
         self.settingsButton.setMaximumSize(QSize(80, 40))
         self.settingsButton.setStyleSheet(
-        "background-color:rgba(0,0,0,0.6); color: white;border : 0px;")
-        
-        
+        " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;}; background-color:rgba(0,0,0,0.6); color: white;border : 0px;")        
         self.settingsButton.clicked.connect(
-            lambda: QMainWindow.showMinimized(self.nativeParentWidget()))
+            lambda: self.nativeParentWidget().startSettingsWindow())
         self.optionBarLayout.addWidget(self.settingsButton,0,Qt.AlignLeft)
         
+        self.helpButton = QPushButton("Help !")
+        self.helpButton.setMinimumSize(QSize(80, 40))
+        self.helpButton.setMaximumSize(QSize(80, 40))
+        self.helpButton.setStyleSheet(
+        " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;}; background-color:rgba(0,0,0,0.6); color: white;border : 0px;")        
+        self.helpButton.clicked.connect(
+            lambda: self.nativeParentWidget().startHelpWindow())
+        self.optionBarLayout.addWidget(self.helpButton,0,Qt.AlignLeft)
+
 
         self.minimizeButton = QPushButton("-")
         self.minimizeButton.setMinimumSize(QSize(50, 40))
         self.minimizeButton.setMaximumSize(QSize(50, 40))
         self.minimizeButton.setStyleSheet(
-        "background-color:rgba(0,0,0,0.6); color: white ;border: solid 0px;")
+        " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;}; background-color:rgba(0,0,0,0.6); color: white;border : 0px;")
         self.minimizeButton.clicked.connect(
             lambda: QMainWindow.showMinimized(self.nativeParentWidget()))
         self.windowGestionBarLayout.addWidget(self.minimizeButton,0,Qt.AlignLeft)
@@ -57,7 +66,7 @@ class SystemBar(QWidget):
         self.exitButton.setMinimumSize(QSize(50, 40))
         self.exitButton.setMaximumSize(QSize(50, 40))
         self.exitButton.setStyleSheet(
-        "background-color:rgba(0,0,0,0.6); color: white;border: solid 0px;")
+        " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;}; background-color:rgba(0,0,0,0.6); color: white;border : 0px;")
         self.exitButton.clicked.connect(
             lambda: QCoreApplication.exit())
         self.windowGestionBarLayout.addWidget(self.exitButton,-10,Qt.AlignLeft)

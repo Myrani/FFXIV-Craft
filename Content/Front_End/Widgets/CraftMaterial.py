@@ -1,10 +1,9 @@
 from PyQt5.QtWidgets import QWidget,QGridLayout,QGroupBox,QLabel,QLineEdit
 
 class CraftMaterial(QWidget):
-    def __init__(self, job, index, parent=None):
+    def __init__(self, index, parent=None):
         super(CraftMaterial, self).__init__(parent)
         self.index = index
-        self.job = job
 
         self.qualityMenu = QGroupBox(self)
         self.qualityMenuLayout = QGridLayout()
@@ -19,7 +18,7 @@ class CraftMaterial(QWidget):
         self.lowQualityLabel = QLabel("Low quality materials")
         self.lowQualityDialog = QLineEdit("0")
         self.lowQualityDialog.textChanged.connect(
-            lambda: self.job.setLowQuality(self.index, self.lowQualityDialog.text()))
+            lambda: self.nativeParentWidget().newJob.setLowQuality(self.index, self.lowQualityDialog.text()))
         self.qualityMenuLayout.addWidget(self.itemLabel, 0, 0, 1, 1)
         self.qualityMenuLayout.addWidget(self.lowQualityLabel, 1, 0, 1, 1)
         self.qualityMenuLayout.addWidget(self.lowQualityDialog, 1, 1, 1, 1)
@@ -27,6 +26,10 @@ class CraftMaterial(QWidget):
         self.highQualityLabel = QLabel("High quality materials")
         self.highQualityDialog = QLineEdit("0")
         self.highQualityDialog.textChanged.connect(
-            lambda: self.job.setHighQuality(self.index, self.highQualityDialog.text()))
+            lambda: self.updateIfNotVoid(self.highQualityDialog.text()))
         self.qualityMenuLayout.addWidget(self.highQualityLabel, 1, 2, 1, 1)
         self.qualityMenuLayout.addWidget(self.highQualityDialog, 1, 3, 1, 1)
+
+    def updateIfNotVoid(self,value):
+        if value != "":
+            self.nativeParentWidget().newJob.setHighQuality(self.index, value)

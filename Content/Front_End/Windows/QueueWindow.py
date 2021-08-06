@@ -26,9 +26,9 @@ class QueueWindow(QWidget):
         self.headerMenu = QGroupBox(self)
         self.headerMenuLayout = QVBoxLayout()
         self.headerMenu.setLayout(self.headerMenuLayout)
-        self.headerMenu.setGeometry(0, 660, 400, 100)
+        self.headerMenu.setGeometry(0, 690, 1280, 30)
         self.headerMenu.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+            "QGroupBox { border:0px solid black;background-color:rgba(0,0,0,0.6);} QLabel{color:white} ")
 
         self.headerLabel = QGroupBox(self)
         self.headerLabelLayout = QVBoxLayout()
@@ -82,7 +82,8 @@ class QueueWindow(QWidget):
 
 
         self.headerMenuLayout.addWidget(QLabel(
-            "FFXIV Craft Manager Beta : Version 0.0.10"))
+            "FFXIV Craft Manager Beta : Version 0.1.15"))
+
 
         self.currentJobLabel = QLabel("Current Joblist")
         self.currentJobLabel.setAlignment(Qt.AlignCenter)
@@ -119,7 +120,7 @@ class QueueWindow(QWidget):
                 self.activityFeedLayout.addWidget(activity)
 
     def generateJobProcessor(self):
-        self.worker = JobProcessor(self.nativeParentWidget().jobList, parent=self)
+        self.worker = JobProcessor(self.nativeParentWidget().jobList,self.nativeParentWidget().parametters["language"], parent=self)
         self.worker.signals.changeText.connect(self.addActivityOnFeed)
         self.worker.signals.addLabel.connect(self.addLabel)
         self.worker.run()

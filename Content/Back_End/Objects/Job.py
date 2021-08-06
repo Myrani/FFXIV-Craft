@@ -1,5 +1,5 @@
 import pickle
-
+import os
 
 class Job():
     def __init__(self, outfit, item, quantity, macro, timestop, lowQuality, highQuality):
@@ -14,20 +14,31 @@ class Job():
 
     def setOutfit(self, content):
         self.outfit = content
+    def getOutfit(self):
+        return self.outfit
 
     def setItem(self, content):
         self.item = content
+    def getItem(self):
+        return self.item
 
     def setQuantity(self, content):
         self.quantity = content
-
+    def getQuantity(self):
+        return self.quantity
+    
     def setMacro(self, content, indent):
         self.macro[indent] = content
+    def getMacro(self,index):
+        return self.macro[index]
+
 
     def setTimeStop(self, content):
         print(content)
         self.timeStop = content
-
+    def getTimeStop(self):
+        return self.timeStop
+    
     def setLowQuality(self, index, content):
         self.lowQuality[index] = int(content)
         print(self.lowQuality)
@@ -38,9 +49,12 @@ class Job():
 
     def swapRecurrent(self):
         self.recurrent = not self.recurrent
+        print(self.recurrent)
 
     def selfSave(self):
-
+        
+        self.file = 'Content/Back_End/Recurrent_Jobs/'+str(self.outfit)+self.item+str(self.quantity)+'.pkl'
+        
         with open('Content/Back_End/Recurrent_Jobs/'+str(self.outfit)+self.item+str(self.quantity)+'.pkl', 'wb') as file:
             pickle.dump(self, file)
 

@@ -33,9 +33,9 @@ class RecurrentJobsWindow(QWidget):
         self.jobMenuLayout = QVBoxLayout()
         self.jobMenuLayout.setContentsMargins(10, 10, 10, 10)
         self.jobMenu.setLayout(self.jobMenuLayout)
-        self.jobMenu.setGeometry(10, 10, 1200, 500)
+        self.jobMenu.setGeometry(10, 50, 1200, 500)
         self.jobMenu.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+            "background-color: rgba(0, 0, 0, 0.6);color :black ;")
 
         self.navigationMenu = QGroupBox(self)
         self.navigationMenuLayout = QGridLayout()
@@ -43,7 +43,7 @@ class RecurrentJobsWindow(QWidget):
         self.navigationMenu.setLayout(self.navigationMenuLayout)
         self.navigationMenu.setGeometry(10, 600, 675, 100)
         self.navigationMenu.setStyleSheet(
-            "QGroupBox {border:0px solid black;}")
+            "QGroupBox {border:0px solid black;} QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} QPushButton{border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;}")
 
         for job in jobList:
             with open('Content/Back_End/Recurrent_Jobs/'+job, 'rb') as currentjob:
@@ -51,6 +51,7 @@ class RecurrentJobsWindow(QWidget):
             self.jobMenuLayout.addWidget(JobLabelWithAdd(task))
 
         self.backButton = QPushButton("Back")
+        self.backButton.setFixedSize(500,30)
         self.backButton.clicked.connect(
             lambda: self.nativeParentWidget().startQueueWindow())
         self.navigationMenuLayout.addWidget(self.backButton, 0, 0, 1, 1)

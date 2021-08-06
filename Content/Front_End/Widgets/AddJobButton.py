@@ -14,7 +14,7 @@ class AddJobButton(QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
+            " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} ;border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;")
 
     def initUI(self):
         self.addButton = QPushButton("+ Create a new job ")
@@ -37,7 +37,7 @@ class AddRepairButton(QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
+            " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} ;border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;")
     def addRepairButton(self):
         self.nativeParentWidget().jobList.append(self.repairJob)
         self.nativeParentWidget().startQueueWindow()
@@ -59,7 +59,7 @@ class AddJobFromRecurrentButton(QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
+            " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} ;border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;")
 
     def initUI(self):
         self.addButton = QPushButton("+ Add a recurrent job ")
@@ -82,7 +82,7 @@ class StartJobsButton(QWidget):
         self.initUI()
 
         self.setStyleSheet(
-            "border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white; ")
+            " QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} ;border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;")
 
     def initUI(self):
         self.addButton = QPushButton("- Start Crafting -")

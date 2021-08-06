@@ -1,4 +1,7 @@
 
+from Content.Front_End.Windows.HelpWindow import HelpWindow
+from Content.Back_End.Objects.Job import Job
+from Content.Front_End.Windows.SettingsWindow import SettingsWindow
 import os
 import sys
 
@@ -12,29 +15,17 @@ from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
 from Content.Front_End.Widgets.MenuButton import MenuButton
 
-def resource_path(relative_path):
-    """ Get the absolute path to the resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath("Content\\Back_End\\") 
-        #"."
-        #"Content\\Back_End\\"
-    return os.path.join(base_path, relative_path)
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setGeometry(10, 10, 1280, 720)
-        # Persistent parametters
+        # Persistent parametters between windows
         self.jobList = []
         self.activityList = []
         self.craftMaterials = 0
         self.menuButtons = []
-
-
+        self.newJob = Job(1, "", 0, ["", ""], 0, {}, {})
+        self.parametters = {"language":"FR"}
 
         # Window Opacity
         self.opacity_effect = QGraphicsOpacityEffect()
@@ -44,7 +35,7 @@ class MainWindow(QMainWindow):
         self.label_background.setGeometry(0, 0, 1280, 720)
         #self.label_background.move(0, 0)
         pixmap = QPixmap(
-            resource_path('Visual_Ressources\\FFXIV.jpeg')).scaled(self.size())
+            self.resource_path('Visual_Ressources\\Commons\\FFXIV.jpeg')).scaled(self.size())
         self.label_background.setPixmap(pixmap)
 
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -52,6 +43,18 @@ class MainWindow(QMainWindow):
 
         self.startQueueWindow()
 
+    def resource_path(self,relative_path):
+        """ Get the absolute path to the resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath("Content\\Back_End\\") 
+            #"."
+            #"Content\\Back_End\\"
+        return os.path.join(base_path, relative_path)
+
+    ### Dragable window part
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
@@ -65,7 +68,8 @@ class MainWindow(QMainWindow):
         delta = QPoint(event.globalPos() - self.oldPos)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
-
+    
+    ### Dynamic window swapping ,call thoses functions to change the current displayed window
     def startQueueWindow(self):
         self.queueWindow = QueueWindow(self.jobList,self.activityList,self.menuButtons ,parent=self)
         self.setCentralWidget(self.queueWindow)
@@ -79,4 +83,14 @@ class MainWindow(QMainWindow):
     def startRecurrentJobsWindow(self):
         self.recurrentJobsWindow = RecurrentJobsWindow(parent=self)
         self.setCentralWidget(self.recurrentJobsWindow)
+        self.show()
+
+    def startSettingsWindow(self):
+        self.settingsWindow = SettingsWindow(self)
+        self.setCentralWidget(self.settingsWindow)
+        self.show()
+
+    def startHelpWindow(self):
+        self.helpWindow = HelpWindow(self)
+        self.setCentralWidget(self.helpWindow)
         self.show()
