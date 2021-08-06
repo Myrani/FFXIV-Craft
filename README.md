@@ -12,6 +12,7 @@ The soft is still in beta, all the main functions are available but if you find 
 - Job save system - to access a saved job in 2 clicks
 - Posibilty to add a repair all equipments job
 - An activity feed to quickly peek at what's been crafted already
+- Game language selection 
 
 # Install
 If you just want to use the software and are not interested in the code, all good !
