@@ -13,7 +13,6 @@ from PyQt5.QtGui import QPixmap
 from Content.Front_End.Windows.QueueWindow import QueueWindow
 from Content.Front_End.Windows.JobCreationWindow import JobCreationWindow
 from Content.Front_End.Windows.RecurrentJobsWindow import RecurrentJobsWindow
-from Content.Front_End.Widgets.MenuButton import MenuButton
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -49,8 +48,8 @@ class MainWindow(QMainWindow):
             # PyInstaller creates a temp folder and stores path in _MEIPASS
             base_path = sys._MEIPASS
         except Exception:
-            base_path = os.path.abspath("Content\\Back_End\\") 
-            #"."
+            base_path = os.path.abspath(".") 
+            #"." Penser à Job,Job Processor
             #"Content\\Back_End\\"
         return os.path.join(base_path, relative_path)
 

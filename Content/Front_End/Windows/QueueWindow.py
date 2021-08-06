@@ -2,7 +2,7 @@ from Content.Front_End.Widgets.SystemBar import SystemBar
 from PyQt5.QtWidgets import QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel
 from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt, pyqtSlot
 
-from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
+from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove, JobRepairLabelWithAdd
 from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton,AddRepairButton
 from Content.Front_End.Widgets.MenuButton import MenuButton
 from Content.Front_End.Widgets.SystemBar import SystemBar
@@ -111,9 +111,10 @@ class QueueWindow(QWidget):
 
     def addJob(self, jobList):
         for job in jobList:
-            self.jobMenuLayout.addWidget(
-                JobLabelWithRemove(job))
-
+            if job.item != "repair":
+                self.jobMenuLayout.addWidget(JobLabelWithRemove(job))
+            else:
+                self.jobMenuLayout.addWidget(JobRepairLabelWithAdd(job))
     def addActivities(self,activitiesList):
         for activity in activitiesList:
             if not sip.isdeleted(activity):

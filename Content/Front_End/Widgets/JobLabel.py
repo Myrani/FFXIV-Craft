@@ -112,3 +112,48 @@ class JobLabelWithAdd(QWidget):
         self.removeButton.clicked.connect(
             lambda: self.delete())
         self.layout.addWidget(self.removeButton)
+
+
+class JobRepairLabelWithAdd(QWidget):
+    def __init__(self, job, parent=None):
+        super().__init__(parent=parent)
+        self.setFixedSize(QSize(650, 100))
+        self.container = QWidget()
+        self.layout = QHBoxLayout(self.container)
+        self.job = job
+        self.outfit = job.outfit
+        self.item = job.item
+        self.quantity = job.quantity
+        self.macro = job.macro
+        self.timeStop = job.timeStop
+        self.lowQuality = job.lowQuality
+        self.highQuality = job.highQuality
+
+        self.setLayout(self.layout)
+        self.initUI()
+        # self.setStyleSheet(
+        #    "border-style: solid black 5px ; color: white;background-color: rgba(0, 0, 0, 0.6); ")
+
+        self.container.setStyleSheet("border-style: solid black 5px ")
+
+    def removeJob(self):
+        self.nativeParentWidget().jobList.remove(self.job)
+        self.nativeParentWidget().startQueueWindow()
+
+    def initUI(self):
+
+        self.itemLabel = QLabel(self.item)
+        self.itemLabel.setFixedSize(QSize(650,50))
+        self.itemLabel.setStyleSheet(
+            "color: white;background-color: rgba(0, 0, 0, 0.5);")
+        self.layout.addWidget(self.itemLabel)
+
+
+        self.removeButton = QPushButton("X")
+        self.removeButton.setStyleSheet(
+            "color: white;background-color: rgba(0, 0, 0, 0.5);")
+
+        self.removeButton.clicked.connect(
+            lambda: self.removeJob())
+
+        self.layout.addWidget(self.removeButton)

@@ -22,7 +22,7 @@ class JobProcessor(QThread):
             # PyInstaller creates a temp folder and stores path in _MEIPASS
             base_path = sys._MEIPASS
         except Exception:
-            base_path = os.path.abspath("Content\\Back_End\\Visual_Ressources\\"+self.language+"\\") 
+            base_path = os.path.abspath(".\\Visual_Ressources\\"+self.language+"\\") 
             # "."
             # 'Content\\Back_End\\'
         return os.path.join(base_path, relative_path)

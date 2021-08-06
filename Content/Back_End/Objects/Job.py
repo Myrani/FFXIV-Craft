@@ -1,4 +1,5 @@
 import pickle
+import sys
 import os
 
 class Job():
@@ -11,6 +12,19 @@ class Job():
         self.recurrent = False
         self.lowQuality = lowQuality
         self.highQuality = highQuality
+
+    def resource_path(self,relative_path):
+        """ Get the absolute path to the resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".") 
+            #"."
+            #"Content\\Back_End\\"
+        return os.path.join(base_path, relative_path)
+
+
 
     def setOutfit(self, content):
         self.outfit = content
@@ -53,9 +67,9 @@ class Job():
 
     def selfSave(self):
         
-        self.file = 'Content/Back_End/Recurrent_Jobs/'+str(self.outfit)+self.item+str(self.quantity)+'.pkl'
+        self.file = self.resource_path("Recurrent_Jobs\\"+str(self.outfit)+self.item+str(self.quantity))+".pkl"
         
-        with open('Content/Back_End/Recurrent_Jobs/'+str(self.outfit)+self.item+str(self.quantity)+'.pkl', 'wb') as file:
+        with open(self.resource_path("Recurrent_Jobs\\"+str(self.outfit)+self.item+str(self.quantity)+".pkl"), 'wb') as file:
             pickle.dump(self, file)
 
         return None

@@ -1,12 +1,7 @@
 from Content.Front_End.Widgets.SystemBar import SystemBar
-from PyQt5.QtWidgets import QCheckBox, QWidget, QGridLayout, QGroupBox, QHBoxLayout, QVBoxLayout, QPushButton, QMainWindow, QLabel
-from PyQt5.QtCore import QThreadPool, QSize, QCoreApplication, Qt, pyqtSlot
+from PyQt5.QtWidgets import QCheckBox, QWidget, QGridLayout, QGroupBox,QPushButton,QLabel
 
-from Content.Front_End.Widgets.JobLabel import JobLabelWithRemove
-from Content.Front_End.Widgets.AddJobButton import AddJobButton, AddJobFromRecurrentButton, StartJobsButton,AddRepairButton
-from Content.Front_End.Widgets.MenuButton import MenuButton
 from Content.Front_End.Widgets.SystemBar import SystemBar
-from Content.Back_End.Objects.JobProcessor import JobProcessor
 
 
 class SettingsWindow(QWidget):

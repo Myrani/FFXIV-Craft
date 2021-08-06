@@ -15,10 +15,23 @@ class RecurrentJobsWindow(QWidget):
         super(RecurrentJobsWindow, self).__init__(parent)
         self.initUI(self.getAllRecurrentJobs())
 
+
+    def resource_path(self,relative_path):
+        """ Get the absolute path to the resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".") 
+            #"."
+            #"Content\\Back_End\\"
+        return os.path.join(base_path, relative_path)
+
+
     def getAllRecurrentJobs(self):
         list_of_jobs = []
 
-        for root, dirs, files in os.walk("Content/Back_End/Recurrent_Jobs/"):
+        for root, dirs, files in os.walk(self.resource_path("Recurrent_Jobs\\")):
             for file in files:
                 list_of_jobs.append(file)
         print(list_of_jobs)
@@ -46,7 +59,7 @@ class RecurrentJobsWindow(QWidget):
             "QGroupBox {border:0px solid black;} QPushButton::hover{background-color: rgba(255, 255, 255, 0.6);color :black ;} QPushButton{border-style: solid; background-color: rgba(0, 0, 0, 0.6);color : white;}")
 
         for job in jobList:
-            with open('Content/Back_End/Recurrent_Jobs/'+job, 'rb') as currentjob:
+            with open(self.resource_path('Recurrent_Jobs/'+job), 'rb') as currentjob:
                 task = pickle.load(currentjob)
             self.jobMenuLayout.addWidget(JobLabelWithAdd(task))
 
